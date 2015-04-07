@@ -25,7 +25,7 @@ public class BackgroundProviderTest extends TestCase {
         canvasSizeProvider.SetValues(width, height);
         MockColorProvider colorProvider = new MockColorProvider();
         colorProvider.SetValues(color);
-
+//
         BackgroundProvider backgroundProvider = new BackgroundProvider(canvasSizeProvider, colorProvider);
 
         ISceneLayer sceneLayer = backgroundProvider.GetLayer();
