@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/com.kihlberg.framework/com.kihlberg.framework.iml" filepath="$PROJECT_DIR$/com.kihlberg.framework/com.kihlberg.framework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.kihlberg.framework.interface/com.kihlberg.framework.interface.iml" filepath="$PROJECT_DIR$/com.kihlberg.framework.interface/com.kihlberg.framework.interface.iml" />
       <module fileurl="file://$PROJECT_DIR$/wallpaper.iml" filepath="$PROJECT_DIR$/wallpaper.iml" />
     </modules>
   </component>

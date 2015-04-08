@@ -3,7 +3,7 @@
   <component name="FacetManager">
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
-        <option name="GRADLE_PROJECT_PATH" value=":com.kihlberg.framework" />
+        <option name="GRADLE_PROJECT_PATH" value=":com.kihlberg.framework.interface" />
       </configuration>
     </facet>
     <facet type="java-gradle" name="Java-Gradle">
@@ -26,17 +26,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="com.kihlberg.framework.interface" exported="" />
-    <orderEntry type="library" exported="" name="mockito-all-2.0.2-beta" level="project" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$APPLICATION_HOME_DIR$/lib/junit.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
   </component>
 </module>
 

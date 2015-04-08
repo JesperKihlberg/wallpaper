@@ -7,13 +7,13 @@ import android.graphics.Path;
 import android.view.SurfaceHolder;
 
 import com.kihlberg.framework.astronomy.IAstronomyProvider;
-import com.kihlberg.framework.astronomy.ITimeProvider;
-import com.kihlberg.framework.drawing.common.ICanvasSizeProvider;
-import com.kihlberg.framework.drawing.common.IGuiElement;
-import com.kihlberg.framework.drawing.common.IUpdatableCanvasSizeProvider;
+import com.kihlberg.framework.interfaces.ITimeProvider;
+import com.kihlberg.framework.interfaces.IGuiElement;
 import com.kihlberg.framework.drawing.layers.ISceneLayer;
 import com.kihlberg.framework.drawing.scene.ISceneProvider;
 import com.kihlberg.framework.drawing.scene.Scene;
+import com.kihlberg.wallpaper.common.IAndroidGuiElement;
+import com.kihlberg.wallpaper.common.IUpdatableCanvasSizeProvider;
 
 /**
  * Created by root on 3/13/15.
@@ -59,13 +59,15 @@ public class WallpaperCanvasService implements IWallpaperCanvasService
 
                 p.setStyle(Paint.Style.FILL);
 
-                for (IGuiElement element : background.GetLayerElements())
+                for (IGuiElement guiElement : background.GetLayerElements())
                 {
+                    IAndroidGuiElement element = (IAndroidGuiElement)guiElement;
                     p.setColor(element.GetColor());
                     c.drawPath(element.GetPath(), p);
                 }
-                for (IGuiElement element : foreground.GetLayerElements())
+                for (IGuiElement guiElement : foreground.GetLayerElements())
                 {
+                    IAndroidGuiElement element = (IAndroidGuiElement)guiElement;
                     p.setColor(element.GetColor());
                     c.drawPath(element.GetPath(), p);
                 }
