@@ -1,23 +1,8 @@
 package com.kihlberg.framework.drawing.background;
-
-import android.graphics.Color;
-import android.graphics.Path;
-
-import com.kihlberg.framework.drawing.color.IColorProvider;
-import com.kihlberg.framework.drawing.common.GetterPath;
-import com.kihlberg.framework.drawing.common.GetterPoint;
-import com.kihlberg.framework.drawing.common.ICanvasSizeProvider;
-import com.kihlberg.framework.drawing.common.IGuiElement;
-import com.kihlberg.framework.drawing.layers.ISceneLayer;
-
-import junit.framework.Assert;
-import junit.framework.TestCase;
-
-import java.util.List;
-
+/*
 public class BackgroundProviderTest extends TestCase {
 
-/*    public void testGetLayer() throws Exception {
+    public void testGetLayer() throws Exception {
         float height = 100;
         float width = 200;
         int color = Color.MAGENTA;
@@ -25,7 +10,7 @@ public class BackgroundProviderTest extends TestCase {
         canvasSizeProvider.SetValues(width, height);
         MockColorProvider colorProvider = new MockColorProvider();
         colorProvider.SetValues(color);
-//
+
         BackgroundProvider backgroundProvider = new BackgroundProvider(canvasSizeProvider, colorProvider);
 
         ISceneLayer sceneLayer = backgroundProvider.GetLayer();
@@ -44,7 +29,7 @@ public class BackgroundProviderTest extends TestCase {
         assertEquals(0f, points.get(3).getX());
         assertEquals(100f, points.get(3).getY());
     }
-*/
+
     private class MockCanvasSizeProvider implements ICanvasSizeProvider {
         private float width;
         private float height;
@@ -79,3 +64,4 @@ public class BackgroundProviderTest extends TestCase {
         }
     }
 }
+*/

@@ -28,8 +28,9 @@ public class MoonVisualizationProvider extends CelestialBodyVisualizationProvide
     @Override
     protected IGuiElement getCelestrialObject() {
         double moonAge = astronomyProvider.GetMoonPosition().getMoonAge();
-        float mainRadius = moonAge < moonFaseLength/2?-primaryRadius:primaryRadius;
-        return guiElementProvider.CreateMoon(GetCelestialBodyXCoord(), GetCelestialBodyYCoord(), mainRadius, CalculateInnerMoonRadius(moonAge), colorProvider.GetMoonColor());
+        float mainRadius = moonAge < moonFaseLength/2?primaryRadius:-primaryRadius;
+        float innerRadius = Math.round(CalculateInnerMoonRadius(moonAge)*10)/10;
+        return guiElementProvider.CreateMoon(GetCelestialBodyXCoord(), GetCelestialBodyYCoord(), mainRadius, innerRadius, colorProvider.GetMoonColor());
     }
 
     private float CalculateInnerMoonRadius(double moonAge){

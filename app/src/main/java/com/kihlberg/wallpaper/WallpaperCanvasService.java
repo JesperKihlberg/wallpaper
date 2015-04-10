@@ -1,5 +1,6 @@
 package com.kihlberg.wallpaper;
 
+import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -58,11 +59,12 @@ public class WallpaperCanvasService implements IWallpaperCanvasService
                 ISceneLayer foreground = scene.foreground;
 
                 p.setStyle(Paint.Style.FILL);
-
                 for (IGuiElement guiElement : background.GetLayerElements())
                 {
                     IAndroidGuiElement element = (IAndroidGuiElement)guiElement;
                     p.setColor(element.GetColor());
+                    BlurMaskFilter maskFilter = new BlurMaskFilter(10,BlurMaskFilter.Blur.NORMAL);
+                    p.setMaskFilter(maskFilter);
                     c.drawPath(element.GetPath(), p);
                 }
                 for (IGuiElement guiElement : foreground.GetLayerElements())
@@ -88,7 +90,7 @@ public class WallpaperCanvasService implements IWallpaperCanvasService
                 p.setColor(Color.WHITE);
                 c.drawText(text, x, y, p);
                 c.drawText("Sun Height: " + astronomyProvider.GetSunPosition().getHeight(), x, y + 50, p);
-                c.drawText("Sun Az: " + background.GetLayerElements().size(), x, y + 100, p);
+                c.drawText("Sun Az: " + astronomyProvider.GetMoonPosition().getMoonAge(), x, y + 100, p);
                 c.drawText("Moon Height: " +astronomyProvider.GetMoonPosition().getHeight(), x ,y+ 150,p);
                 c.drawText("Moon Az: " +astronomyProvider.GetMoonPosition().getOrientation(), x ,y+ 200,p);
             }

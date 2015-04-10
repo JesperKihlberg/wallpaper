@@ -53,7 +53,7 @@ public abstract class CelestialBodyVisualizationProvider implements ICanvasDepen
         //180-360 west
         double celestialBodyPos = getElementPosition().getOrientation();
 
-        double celestialBodyAzNorm = 1 - ((celestialBodyPos<180?(celestialBodyPos+180) :(celestialBodyPos - 180))/360);
+        double celestialBodyAzNorm = (celestialBodyPos/360);
         return (float)(celestialBodyMinY + celestialBodyAzNorm * celestialBodyMaxY);
 
     }

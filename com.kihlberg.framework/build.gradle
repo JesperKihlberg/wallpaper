@@ -4,4 +4,5 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'org.mockito:mockito-all:2.0.2-beta'
     compile project(':com.kihlberg.framework.interface')
+    compile 'junit:junit:4.12'
 }

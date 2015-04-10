@@ -144,8 +144,8 @@ public class SunMoonCalculator {
                         1.7758961671447929E-10 * x2 * x3 - 2.7889902806153024E-13 * x2 * x4 + 1.0224295822336825E-16 * x3 * x4 - 1.2528102370680435E-20 * x4 * x4;
             }
         }
-        this.obsLon = obsLon;
-        this.obsLat = obsLat;
+        this.obsLon = obsLon*DEG_TO_RAD;
+        this.obsLat = obsLat*DEG_TO_RAD;
         setUTDate(jd);
     }
 
