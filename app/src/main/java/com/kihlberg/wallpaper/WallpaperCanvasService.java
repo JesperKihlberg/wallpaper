@@ -63,7 +63,7 @@ public class WallpaperCanvasService implements IWallpaperCanvasService
                 {
                     IAndroidGuiElement element = (IAndroidGuiElement)guiElement;
                     p.setColor(element.GetColor());
-                    BlurMaskFilter maskFilter = new BlurMaskFilter(10,BlurMaskFilter.Blur.NORMAL);
+                    BlurMaskFilter maskFilter = new BlurMaskFilter(10,BlurMaskFilter.Blur.SOLID);
                     p.setMaskFilter(maskFilter);
                     c.drawPath(element.GetPath(), p);
                 }

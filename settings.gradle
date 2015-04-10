@@ -1,1 +1,1 @@
-include ':app', ':com.kihlberg.framework', ':com.kihlberg.framework.interface'
+include ':app', ':com.kihlberg.framework', ':com.kihlberg.framework.interface', ':com.kihlberg.framework.test'

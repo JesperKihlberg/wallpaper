@@ -1,4 +1,4 @@
-package com.kihlberg.framwork.test.drawing.background;
+package com.example;
 
 import com.kihlberg.framework.astronomy.IAstronomyProvider;
 import com.kihlberg.framework.astronomy.IMoonPosition;
@@ -8,9 +8,12 @@ import com.kihlberg.framework.interfaces.IColorProvider;
 import com.kihlberg.framework.interfaces.IGuiElement;
 import com.kihlberg.framework.interfaces.IGuiElementProvider;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +24,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(value = Parameterized.class)
-public class MoonVisualizationProviderTest {
+public class testMoon {
 
     private double moonAge;
     private double moonHeight;
@@ -32,7 +35,7 @@ public class MoonVisualizationProviderTest {
     private float radius1;
     private float radius2;
 
-    public MoonVisualizationProviderTest(double moonAge, double moonHeight, double moonOrientation, float x, float y, float radius1, float radius2) {
+    public testMoon(double moonAge, double moonHeight, double moonOrientation, float x, float y, float radius1, float radius2) {
         this.moonAge = moonAge;
         this.moonHeight = moonHeight;
         this.moonOrientation = moonOrientation;
@@ -41,7 +44,8 @@ public class MoonVisualizationProviderTest {
         this.radius1 = radius1;
         this.radius2 = radius2;
     }
-    @Parameterized.Parameters(name="{index}: GetCelestrialObject({0},{1},{2})=>({3},{4},{5},{6})")
+    //    @Parameterized.Parameters(name="{index}: GetCelestrialObject({0},{1},{2})=>({3},{4},{5},{6})")
+    @Parameterized.Parameters()
     public static Iterable<Object[]> data(){
         return Arrays.asList(new Object[][]{
                 //moon radii
@@ -64,30 +68,30 @@ public class MoonVisualizationProviderTest {
         float canvasHeight = 100;
         float canvasWidth = 200;
         int color = 210;
-        IMoonPosition monPosMock = mock(IMoonPosition.class);
-        IGuiElement moonMock = mock(IGuiElement.class);
+        IMoonPosition monPosMock = Mockito.mock(IMoonPosition.class);
+        IGuiElement moonMock = Mockito.mock(IGuiElement.class);
 
-        IAstronomyProvider astronomyProviderMock = mock(IAstronomyProvider.class);
-        IHorizonProvider horizonProviderMock = mock(IHorizonProvider.class);
-        IGuiElementProvider guiElementProviderMock = mock(IGuiElementProvider.class);
-        IColorProvider colorProviderMock= mock(IColorProvider.class);
+        IAstronomyProvider astronomyProviderMock = Mockito.mock(IAstronomyProvider.class);
+        IHorizonProvider horizonProviderMock = Mockito.mock(IHorizonProvider.class);
+        IGuiElementProvider guiElementProviderMock = Mockito.mock(IGuiElementProvider.class);
+        IColorProvider colorProviderMock= Mockito.mock(IColorProvider.class);
 
-        when(astronomyProviderMock.GetMoonPosition()).thenReturn(monPosMock);
-        when(monPosMock.getMoonAge()).thenReturn(this.moonAge);
-        when(monPosMock.getHeight()).thenReturn(this.moonHeight);
-        when(monPosMock.getOrientation()).thenReturn(this.moonOrientation);
-        when(colorProviderMock.GetMoonColor()).thenReturn(color );
-        when(guiElementProviderMock.CreateMoon(this.x, this.y, this.radius1, this.radius2, color)).thenReturn(moonMock);
-        when(horizonProviderMock.GetHorizonYCoord()).thenReturn(canvasHeight);
+        Mockito.when(astronomyProviderMock.GetMoonPosition()).thenReturn(monPosMock);
+        Mockito.when(monPosMock.getMoonAge()).thenReturn(this.moonAge);
+        Mockito.when(monPosMock.getHeight()).thenReturn(this.moonHeight);
+        Mockito.when(monPosMock.getOrientation()).thenReturn(this.moonOrientation);
+        Mockito.when(colorProviderMock.GetMoonColor()).thenReturn(color );
+        Mockito.when(guiElementProviderMock.CreateMoon(this.x, this.y, this.radius1, this.radius2, color)).thenReturn(moonMock);
+        Mockito.when(horizonProviderMock.GetHorizonYCoord()).thenReturn(canvasHeight);
 
         MoonVisualizationProvider obj = GetObject(astronomyProviderMock,horizonProviderMock,guiElementProviderMock,colorProviderMock );
         obj.NotifyCanvasSizeChanged(canvasWidth, canvasHeight);
         List<IGuiElement> result = obj.GetLayer();
 
-        verify(guiElementProviderMock).CreateMoon(this.x, this.y, this.radius1, this.radius2, color);
+        Mockito.verify(guiElementProviderMock).CreateMoon(this.x, this.y, this.radius1, this.radius2, color);
 
-        assertEquals(1,result.size());
-        assertEquals(moonMock, result.get(0));
+        Assert.assertEquals(1, result.size());
+        Assert.assertEquals(moonMock, result.get(0));
     }
 
     private MoonVisualizationProvider GetObject(IAstronomyProvider astronomyProvider,
