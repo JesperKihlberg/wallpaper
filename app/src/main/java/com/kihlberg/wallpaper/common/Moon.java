@@ -11,9 +11,12 @@ public class Moon extends GuiElement implements IMoon {
     private float y;
     private float radius1;
     private float radius2;
-
-    public Moon(float x, float y, float radius1, float radius2, int color) {
-        super(color);
+    public Moon(float x, float y, float radius1, float radius2, int color)
+    {
+        this(x, y, radius1, radius2, color, false);
+    }
+    public Moon(float x, float y, float radius1, float radius2, int color, boolean shouldBlur) {
+        super(color, shouldBlur);
         this.x = x;
         this.y = y;
         this.radius1 = radius1;

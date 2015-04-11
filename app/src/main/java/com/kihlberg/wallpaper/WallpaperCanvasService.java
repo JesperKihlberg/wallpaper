@@ -3,6 +3,7 @@ package com.kihlberg.wallpaper;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.MaskFilter;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.view.SurfaceHolder;
@@ -52,26 +53,41 @@ public class WallpaperCanvasService implements IWallpaperCanvasService
                 float w = p.measureText(text, 0, text.length());
                 int offset = (int) w / 2;
                 int x = c.getWidth()/2 - offset;
-                int y = c.getHeight()/2;
+                int y = 70;
 
                 Scene scene = sceneProvider.GetScene();
                 ISceneLayer background = scene.background;
                 ISceneLayer foreground = scene.foreground;
 
                 p.setStyle(Paint.Style.FILL);
+
                 for (IGuiElement guiElement : background.GetLayerElements())
                 {
                     IAndroidGuiElement element = (IAndroidGuiElement)guiElement;
                     p.setColor(element.GetColor());
-                    BlurMaskFilter maskFilter = new BlurMaskFilter(10,BlurMaskFilter.Blur.SOLID);
-                    p.setMaskFilter(maskFilter);
+                    MaskFilter filter = p.getMaskFilter();
+                    if(element.ShouldBlur()) {
+                        BlurMaskFilter maskFilter = new BlurMaskFilter(3, BlurMaskFilter.Blur.SOLID);
+                        p.setMaskFilter(maskFilter);
+                    }
                     c.drawPath(element.GetPath(), p);
+                    if(element.ShouldBlur()) {
+                        p.setMaskFilter(filter);
+                    }
                 }
                 for (IGuiElement guiElement : foreground.GetLayerElements())
                 {
                     IAndroidGuiElement element = (IAndroidGuiElement)guiElement;
                     p.setColor(element.GetColor());
+                    MaskFilter filter = p.getMaskFilter();
+                    if(element.ShouldBlur()) {
+                        BlurMaskFilter maskFilter = new BlurMaskFilter(3, BlurMaskFilter.Blur.SOLID);
+                        p.setMaskFilter(maskFilter);
+                    }
                     c.drawPath(element.GetPath(), p);
+                    if(element.ShouldBlur()) {
+                        p.setMaskFilter(filter);
+                    }
                 }
 /*
                 p.setStyle(Paint.Style.STROKE);

@@ -16,9 +16,11 @@ public class Circle extends GuiElement implements ICircle {
         path.addCircle(x,y,radius, Path.Direction.CW);
         return path;
     }
-
     public Circle(float x, float y, float radius, int color) {
-        super(color);
+        this(x, y, radius, color, false);
+    }
+    public Circle(float x, float y, float radius, int color, boolean shouldBlur) {
+        super(color, shouldBlur);
         this.x = x;
         this.y = y;
         this.radius = radius;

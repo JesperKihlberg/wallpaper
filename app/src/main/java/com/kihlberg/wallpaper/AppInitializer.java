@@ -3,6 +3,7 @@ package com.kihlberg.wallpaper;
 import com.kihlberg.framework.astronomy.AstronomyProvider;
 import com.kihlberg.framework.astronomy.IAstronomyProvider;
 import com.kihlberg.framework.astronomy.ILocationProvider;
+import com.kihlberg.framework.drawing.foreground.ForegroundLayerProvider;
 import com.kihlberg.framework.interfaces.ICanvasDependant;
 import com.kihlberg.framework.interfaces.IColorProvider;
 import com.kihlberg.framework.interfaces.IGuiElementProvider;
@@ -45,6 +46,9 @@ public class AppInitializer {
     private ISceneProvider sceneProvider = null;
     private IUpdatableCanvasSizeProvider canvasSizeProvider = null;
     private IColorProvider colorProvider = null;
+    private ForegroundLayerProvider foregroundLayerProvider1;
+    private ForegroundLayerProvider foregroundLayerProvider2;
+    private ForegroundLayerProvider foregroundLayerProvider3;
 
     protected AppInitializer() {
         ArrayList<ICanvasDependant> canvasDependants = new ArrayList<ICanvasDependant>();
@@ -58,13 +62,19 @@ public class AppInitializer {
         colorProvider = new ColorProvider(weatherProvider, astronomyProvider, timeProvider);
         sunVisualizationProvider = new SunVisualizationProvider(astronomyProvider,horizonProvider, guiElementProvider, colorProvider);
         moonVisualizationProvider= new MoonVisualizationProvider(astronomyProvider,horizonProvider, guiElementProvider, colorProvider);
-        foregroundProvider = new ForegroundProvider( colorProvider, guiElementProvider);
+        foregroundLayerProvider1 = new ForegroundLayerProvider(colorProvider,guiElementProvider);
+        foregroundLayerProvider2= new ForegroundLayerProvider(colorProvider,guiElementProvider);
+        foregroundLayerProvider3= new ForegroundLayerProvider(colorProvider,guiElementProvider);
+        foregroundProvider = new ForegroundProvider( colorProvider, guiElementProvider, foregroundLayerProvider1,foregroundLayerProvider2, foregroundLayerProvider3);
         backgroundProvider = new BackgroundProvider(colorProvider, guiElementProvider, sunVisualizationProvider, moonVisualizationProvider);
         sceneProvider= new SceneProvider(foregroundProvider, backgroundProvider);
         canvasDependants.add(horizonProvider);
         canvasDependants.add(sunVisualizationProvider);
         canvasDependants.add(moonVisualizationProvider);
         canvasDependants.add(foregroundProvider);
+        canvasDependants.add(foregroundLayerProvider1);
+        canvasDependants.add(foregroundLayerProvider2);
+        canvasDependants.add(foregroundLayerProvider3);
         canvasDependants.add(backgroundProvider);
         canvasSizeProvider = new CanvasSizeProvider(canvasDependants);
         canvasInstance = new WallpaperCanvasService(sceneProvider, canvasSizeProvider, timeProvider,astronomyProvider);

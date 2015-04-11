@@ -19,15 +19,23 @@ public class ForegroundProvider extends SceneLayerProvider implements IForegroun
 
     private float canvasWidth= 0;
     private float canvasHeight =0;
+    private IForegroundLayerProvider foregroundLayerProvider1;
+    private IForegroundLayerProvider foregroundLayerProvider2;
+    private IForegroundLayerProvider foregroundLayerProvider3;
 
-    public ForegroundProvider(IColorProvider colorProvider, IGuiElementProvider guiElementProvider) {
+    public ForegroundProvider(IColorProvider colorProvider, IGuiElementProvider guiElementProvider, IForegroundLayerProvider foregroundLayerProvider1, IForegroundLayerProvider foregroundLayerProvider2, IForegroundLayerProvider foregroundLayerProvider3) {
         super(colorProvider, guiElementProvider);
+        this.foregroundLayerProvider1=foregroundLayerProvider1;
+        this.foregroundLayerProvider2=foregroundLayerProvider2;
+        this.foregroundLayerProvider3=foregroundLayerProvider3;
     }
 
     @Override
     public ISceneLayer GetLayer() {
         List<IGuiElement> elements = new ArrayList<IGuiElement>();
-        elements.add(guiElementProvider.CreateBox(0, canvasHeight * 2 / 3, canvasWidth, canvasHeight, colorProvider.GetGroundColor()));
+        elements.addAll(foregroundLayerProvider1.GetLayer(0).GetLayerElements());
+        elements.addAll(foregroundLayerProvider2.GetLayer(canvasHeight/15).GetLayerElements());
+        elements.addAll(foregroundLayerProvider3.GetLayer(canvasHeight/10).GetLayerElements());
         return new SceneLayer(elements);
     }
 
@@ -36,4 +44,5 @@ public class ForegroundProvider extends SceneLayerProvider implements IForegroun
         canvasWidth = width;
         canvasHeight = height;
     }
+
 }

@@ -11,4 +11,5 @@ import com.kihlberg.framework.interfaces.IGuiElement;
 public interface IAndroidGuiElement extends IGuiElement{
     public Path GetPath();
     public int GetColor();
+    public boolean ShouldBlur();
 }

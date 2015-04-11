@@ -24,7 +24,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(value = Parameterized.class)
-public class testMoon {
+public class testMoonVisualizationProvider {
 
     private double moonAge;
     private double moonHeight;
@@ -35,7 +35,7 @@ public class testMoon {
     private float radius1;
     private float radius2;
 
-    public testMoon(double moonAge, double moonHeight, double moonOrientation, float x, float y, float radius1, float radius2) {
+    public testMoonVisualizationProvider(double moonAge, double moonHeight, double moonOrientation, float x, float y, float radius1, float radius2) {
         this.moonAge = moonAge;
         this.moonHeight = moonHeight;
         this.moonOrientation = moonOrientation;
@@ -50,6 +50,7 @@ public class testMoon {
         return Arrays.asList(new Object[][]{
                 //moon radii
                 {0,0,0,0,100,50,50},
+                {29.499,0,0,0,100,50,50},
                 {29.5/2,0,0,0,100,-50,50},
                 {29.5/4,0,0,0,100,50,0},
                 {29.5*3/4,0,0,0,100,-50,0},
@@ -81,14 +82,14 @@ public class testMoon {
         Mockito.when(monPosMock.getHeight()).thenReturn(this.moonHeight);
         Mockito.when(monPosMock.getOrientation()).thenReturn(this.moonOrientation);
         Mockito.when(colorProviderMock.GetMoonColor()).thenReturn(color );
-        Mockito.when(guiElementProviderMock.CreateMoon(this.x, this.y, this.radius1, this.radius2, color)).thenReturn(moonMock);
+        Mockito.when(guiElementProviderMock.CreateMoon(this.x, this.y, this.radius1, this.radius2, color,true)).thenReturn(moonMock);
         Mockito.when(horizonProviderMock.GetHorizonYCoord()).thenReturn(canvasHeight);
 
         MoonVisualizationProvider obj = GetObject(astronomyProviderMock,horizonProviderMock,guiElementProviderMock,colorProviderMock );
         obj.NotifyCanvasSizeChanged(canvasWidth, canvasHeight);
         List<IGuiElement> result = obj.GetLayer();
 
-        Mockito.verify(guiElementProviderMock).CreateMoon(this.x, this.y, this.radius1, this.radius2, color);
+        Mockito.verify(guiElementProviderMock).CreateMoon(this.x, this.y, this.radius1, this.radius2, color,true);
 
         Assert.assertEquals(1, result.size());
         Assert.assertEquals(moonMock, result.get(0));

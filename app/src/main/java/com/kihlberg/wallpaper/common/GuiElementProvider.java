@@ -9,14 +9,36 @@ import com.kihlberg.framework.interfaces.IGuiElementProvider;
 public class GuiElementProvider implements IGuiElementProvider {
     @Override
     public IGuiElement CreateBox(float minx, float miny, float maxx, float maxy, int color){
-        return new Box(minx, miny, maxx, maxy, color);
+        return CreateBox(minx, miny, maxx, maxy, color, false);
+    }
+    @Override
+    public IGuiElement CreateBox(float minx, float miny, float maxx, float maxy, int color, boolean shouldBlur){
+        return new Box(minx, miny, maxx, maxy, color, shouldBlur);
     }
     @Override
     public IGuiElement CreateCircle(float x, float y, float radius, int color){
-        return new Circle(x, y, radius, color);
+        return CreateCircle(x, y, radius, color, false);
+    }
+    @Override
+    public IGuiElement CreateCircle(float x, float y, float radius, int color, boolean shouldBlur){
+        return new Circle(x, y, radius, color,shouldBlur);
     }
     @Override
     public IGuiElement CreateMoon(float x, float y, float radius1, float radius2, int color){
-        return new Moon(x, y, radius1, radius2, color);
+        return CreateMoon(x, y, radius1, radius2, color, false);
+    }
+    @Override
+    public IGuiElement CreateMoon(float x, float y, float radius1, float radius2, int color, boolean shouldBlur){
+        return new Moon(x, y, radius1, radius2, color,shouldBlur);
+    }
+
+    @Override
+    public IGuiElement CreateBezierTopBox(float minx, float miny, float maxx, float maxy, float topPointX, float topPointY, int color) {
+        return CreateBezierTopBox(minx, miny, maxx, maxy, topPointX, topPointY, color,false);
+    }
+
+    @Override
+    public IGuiElement CreateBezierTopBox(float minx, float miny, float maxx, float maxy, float topPointX, float topPointY, int color, boolean shouldBlur) {
+        return new BezierTopBox(minx, miny, maxx, maxy, topPointX, topPointY, color,shouldBlur);
     }
 }

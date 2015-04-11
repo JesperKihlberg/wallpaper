@@ -28,7 +28,7 @@ public class CanvasSizeProvider implements IUpdatableCanvasSizeProvider{
         this.width=width;
         this.height= height;
         for(ICanvasDependant canvasDependants : canvasDependantsList) {
-            canvasDependants.NotifyCanvasSizeChanged( width, height);
+            canvasDependants.NotifyCanvasSizeChanged( this.width, this.height);
         }
 
     }

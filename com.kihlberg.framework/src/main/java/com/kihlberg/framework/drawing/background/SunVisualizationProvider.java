@@ -24,7 +24,7 @@ public class SunVisualizationProvider extends CelestialBodyVisualizationProvider
     }
     @Override
     protected IGuiElement getCelestrialObject() {
-        return guiElementProvider.CreateCircle(GetCelestialBodyXCoord(), GetCelestialBodyYCoord(), 50, colorProvider.GetSunColor());
+        return guiElementProvider.CreateCircle(GetCelestialBodyXCoord(), GetCelestialBodyYCoord(), 50, colorProvider.GetSunColor(),true);
     }
 
 }

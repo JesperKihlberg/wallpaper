@@ -80,7 +80,10 @@ public class ColorProvider implements IColorProvider {
 
     @Override
     public int GetGroundColor() {
-        return Color.GREEN;
+        int redPart = (int) (10 + Math.random()*40);
+        int greenPart = (int) (180 + Math.random()*60);
+        int bluePart = (int) (15 + Math.random()*40);
+        return Color.rgb(redPart,greenPart,bluePart);
     }
 
     private int GetSkySunsetStartColor() {

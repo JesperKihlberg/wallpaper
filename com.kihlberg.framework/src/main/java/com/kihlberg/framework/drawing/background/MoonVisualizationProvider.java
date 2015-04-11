@@ -30,7 +30,11 @@ public class MoonVisualizationProvider extends CelestialBodyVisualizationProvide
         double moonAge = astronomyProvider.GetMoonPosition().getMoonAge();
         float mainRadius = moonAge < moonFaseLength/2?primaryRadius:-primaryRadius;
         float innerRadius = Math.round(CalculateInnerMoonRadius(moonAge)*10)/10;
-        return guiElementProvider.CreateMoon(GetCelestialBodyXCoord(), GetCelestialBodyYCoord(), mainRadius, innerRadius, colorProvider.GetMoonColor());
+        if(moonAge>moonFaseLength) {
+            mainRadius=50;
+            innerRadius=50;
+        }
+        return guiElementProvider.CreateMoon(GetCelestialBodyXCoord(), GetCelestialBodyYCoord(), mainRadius, innerRadius, colorProvider.GetMoonColor(),true);
     }
 
     private float CalculateInnerMoonRadius(double moonAge){
