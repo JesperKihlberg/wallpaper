@@ -67,13 +67,17 @@ public class WallpaperCanvasService implements IWallpaperCanvasService
                     p.setColor(element.GetColor());
                     MaskFilter filter = p.getMaskFilter();
                     if(element.ShouldBlur()) {
-                        BlurMaskFilter maskFilter = new BlurMaskFilter(3, BlurMaskFilter.Blur.SOLID);
+                        BlurMaskFilter maskFilter = new BlurMaskFilter(20, BlurMaskFilter.Blur.NORMAL);
                         p.setMaskFilter(maskFilter);
-                    }
-                    c.drawPath(element.GetPath(), p);
-                    if(element.ShouldBlur()) {
+                        c.drawPath(element.GetPath(), p);
+                         maskFilter = new BlurMaskFilter(5, BlurMaskFilter.Blur.NORMAL);
+                        p.setMaskFilter(maskFilter);
+                        c.drawPath(element.GetPath(), p);
                         p.setMaskFilter(filter);
+                        c.drawPath(element.GetPath(), p);
                     }
+                    else
+                        c.drawPath(element.GetPath(), p);
                 }
                 for (IGuiElement guiElement : foreground.GetLayerElements())
                 {
