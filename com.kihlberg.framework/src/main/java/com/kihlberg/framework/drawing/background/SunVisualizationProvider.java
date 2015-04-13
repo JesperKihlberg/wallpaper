@@ -2,6 +2,8 @@ package com.kihlberg.framework.drawing.background;
 
 import com.kihlberg.framework.astronomy.IAstronomyElementPosition;
 import com.kihlberg.framework.astronomy.IAstronomyProvider;
+import com.kihlberg.framework.interfaces.BaseColorSetting;
+import com.kihlberg.framework.interfaces.GuiElementType;
 import com.kihlberg.framework.interfaces.IColorProvider;
 import com.kihlberg.framework.interfaces.IGuiElement;
 import com.kihlberg.framework.interfaces.IGuiElementProvider;
@@ -24,7 +26,7 @@ public class SunVisualizationProvider extends CelestialBodyVisualizationProvider
     }
     @Override
     protected IGuiElement getCelestrialObject() {
-        return guiElementProvider.CreateCircle(GetCelestialBodyXCoord(), GetCelestialBodyYCoord(), 50, colorProvider.GetSunColor(),true);
+        return guiElementProvider.CreateCircle(GetCelestialBodyXCoord(), GetCelestialBodyYCoord(), 50, new BaseColorSetting(GuiElementType.Sun, colorProvider.GetSunColor()),true);
     }
 
 }

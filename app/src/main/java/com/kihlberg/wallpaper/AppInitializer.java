@@ -62,9 +62,9 @@ public class AppInitializer {
         colorProvider = new ColorProvider(weatherProvider, astronomyProvider, timeProvider);
         sunVisualizationProvider = new SunVisualizationProvider(astronomyProvider,horizonProvider, guiElementProvider, colorProvider);
         moonVisualizationProvider= new MoonVisualizationProvider(astronomyProvider,horizonProvider, guiElementProvider, colorProvider);
-        foregroundLayerProvider1 = new ForegroundLayerProvider(colorProvider,guiElementProvider);
-        foregroundLayerProvider2= new ForegroundLayerProvider(colorProvider,guiElementProvider);
-        foregroundLayerProvider3= new ForegroundLayerProvider(colorProvider,guiElementProvider);
+        foregroundLayerProvider1 = new ForegroundLayerProvider(colorProvider,guiElementProvider,horizonProvider);
+        foregroundLayerProvider2= new ForegroundLayerProvider(colorProvider,guiElementProvider,horizonProvider);
+        foregroundLayerProvider3= new ForegroundLayerProvider(colorProvider,guiElementProvider,horizonProvider);
         foregroundProvider = new ForegroundProvider( colorProvider, guiElementProvider, foregroundLayerProvider1,foregroundLayerProvider2, foregroundLayerProvider3);
         backgroundProvider = new BackgroundProvider(colorProvider, guiElementProvider, sunVisualizationProvider, moonVisualizationProvider);
         sceneProvider= new SceneProvider(foregroundProvider, backgroundProvider);

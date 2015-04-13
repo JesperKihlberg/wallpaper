@@ -4,6 +4,8 @@ import com.kihlberg.framework.astronomy.IAstronomyProvider;
 import com.kihlberg.framework.astronomy.IMoonPosition;
 import com.kihlberg.framework.drawing.background.IHorizonProvider;
 import com.kihlberg.framework.drawing.background.MoonVisualizationProvider;
+import com.kihlberg.framework.interfaces.BaseColorSetting;
+import com.kihlberg.framework.interfaces.GuiElementType;
 import com.kihlberg.framework.interfaces.IColorProvider;
 import com.kihlberg.framework.interfaces.IGuiElement;
 import com.kihlberg.framework.interfaces.IGuiElementProvider;
@@ -82,14 +84,14 @@ public class testMoonVisualizationProvider {
         Mockito.when(monPosMock.getHeight()).thenReturn(this.moonHeight);
         Mockito.when(monPosMock.getOrientation()).thenReturn(this.moonOrientation);
         Mockito.when(colorProviderMock.GetMoonColor()).thenReturn(color );
-        Mockito.when(guiElementProviderMock.CreateMoon(this.x, this.y, this.radius1, this.radius2, color,true)).thenReturn(moonMock);
+        Mockito.when(guiElementProviderMock.CreateMoon(this.x, this.y, this.radius1, this.radius2, new BaseColorSetting(GuiElementType.Moon, color), true)).thenReturn(moonMock);
         Mockito.when(horizonProviderMock.GetHorizonYCoord()).thenReturn(canvasHeight);
 
         MoonVisualizationProvider obj = GetObject(astronomyProviderMock,horizonProviderMock,guiElementProviderMock,colorProviderMock );
         obj.NotifyCanvasSizeChanged(canvasWidth, canvasHeight);
         List<IGuiElement> result = obj.GetLayer();
 
-        Mockito.verify(guiElementProviderMock).CreateMoon(this.x, this.y, this.radius1, this.radius2, color,true);
+        Mockito.verify(guiElementProviderMock).CreateMoon(this.x, this.y, this.radius1, this.radius2, new BaseColorSetting(GuiElementType.Moon, color),true);
 
         Assert.assertEquals(1, result.size());
         Assert.assertEquals(moonMock, result.get(0));

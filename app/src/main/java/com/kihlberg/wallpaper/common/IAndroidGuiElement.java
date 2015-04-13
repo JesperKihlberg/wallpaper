@@ -1,8 +1,8 @@
 package com.kihlberg.wallpaper.common;
 
-import android.graphics.Color;
 import android.graphics.Path;
 
+import com.kihlberg.framework.interfaces.BaseColorSetting;
 import com.kihlberg.framework.interfaces.IGuiElement;
 
 /**
@@ -10,6 +10,6 @@ import com.kihlberg.framework.interfaces.IGuiElement;
  */
 public interface IAndroidGuiElement extends IGuiElement{
     public Path GetPath();
-    public int GetColor();
+    public BaseColorSetting GetColor();
     public boolean ShouldBlur();
 }

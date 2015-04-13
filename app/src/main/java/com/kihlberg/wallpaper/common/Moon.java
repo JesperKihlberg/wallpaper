@@ -3,6 +3,8 @@ package com.kihlberg.wallpaper.common;
 import android.graphics.Path;
 import android.graphics.RectF;
 
+import com.kihlberg.framework.interfaces.BaseColorSetting;
+
 /**
  * Created by root on 4/3/15.
  */
@@ -11,11 +13,8 @@ public class Moon extends GuiElement implements IMoon {
     private float y;
     private float radius1;
     private float radius2;
-    public Moon(float x, float y, float radius1, float radius2, int color)
-    {
-        this(x, y, radius1, radius2, color, false);
-    }
-    public Moon(float x, float y, float radius1, float radius2, int color, boolean shouldBlur) {
+
+    public Moon(float x, float y, float radius1, float radius2, BaseColorSetting color, boolean shouldBlur) {
         super(color, shouldBlur);
         this.x = x;
         this.y = y;

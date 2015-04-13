@@ -3,6 +3,8 @@ package com.kihlberg.framework.drawing.background;
 
 import com.kihlberg.framework.astronomy.IAstronomyElementPosition;
 import com.kihlberg.framework.astronomy.IAstronomyProvider;
+import com.kihlberg.framework.interfaces.BaseColorSetting;
+import com.kihlberg.framework.interfaces.GuiElementType;
 import com.kihlberg.framework.interfaces.IColorProvider;
 import com.kihlberg.framework.interfaces.IGuiElement;
 import com.kihlberg.framework.interfaces.IGuiElementProvider;
@@ -34,7 +36,7 @@ public class MoonVisualizationProvider extends CelestialBodyVisualizationProvide
             mainRadius=50;
             innerRadius=50;
         }
-        return guiElementProvider.CreateMoon(GetCelestialBodyXCoord(), GetCelestialBodyYCoord(), mainRadius, innerRadius, colorProvider.GetMoonColor(),true);
+        return guiElementProvider.CreateMoon(GetCelestialBodyXCoord(), GetCelestialBodyYCoord(), mainRadius, innerRadius, new BaseColorSetting( GuiElementType.Moon, colorProvider.GetMoonColor()),true);
     }
 
     private float CalculateInnerMoonRadius(double moonAge){

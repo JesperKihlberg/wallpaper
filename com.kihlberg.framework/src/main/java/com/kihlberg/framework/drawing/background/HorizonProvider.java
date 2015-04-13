@@ -14,7 +14,7 @@ public class HorizonProvider implements IHorizonProvider, ICanvasDependant {
 
     @Override
     public float GetHorizonYCoord(){
-        return canvasHeight*2/3;
+        return canvasHeight*5/8;
     }
 
     @Override

@@ -3,6 +3,8 @@ package com.kihlberg.wallpaper.common;
 import android.graphics.Path;
 import android.graphics.RectF;
 
+import com.kihlberg.framework.interfaces.BaseColorSetting;
+import com.kihlberg.framework.interfaces.GuiElementType;
 import com.kihlberg.framework.interfaces.IGuiElement;
 
 /**
@@ -16,18 +18,14 @@ public class BezierTopBox extends GuiElement implements IAndroidGuiElement {
     private float topPointX;
     private float topPointY;
 
-    public BezierTopBox(float minx, float miny, float maxx, float maxy, float topPointX, float topPointY, int color, boolean shouldBlur) {
-        super(color, shouldBlur);
+    public BezierTopBox(float minx, float miny, float maxx, float maxy, float topPointX, float topPointY, BaseColorSetting color, boolean shouldBlur) {
+        super( color, shouldBlur);
         this.minx = minx;
         this.miny = miny;
         this.maxx = maxx;
         this.maxy = maxy;
         this.topPointX = topPointX;
         this.topPointY = topPointY;
-    }
-
-    public BezierTopBox( float minx, float miny, float maxx, float maxy, float topPointX, float topPointY, int color) {
-        this( minx, miny, maxx, maxy, topPointX, topPointY, color, false);
     }
 
     @Override

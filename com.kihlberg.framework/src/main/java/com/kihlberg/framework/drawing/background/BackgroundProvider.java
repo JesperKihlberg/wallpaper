@@ -1,5 +1,7 @@
 package com.kihlberg.framework.drawing.background;
 
+import com.kihlberg.framework.interfaces.BaseColorSetting;
+import com.kihlberg.framework.interfaces.GuiElementType;
 import com.kihlberg.framework.interfaces.IColorProvider;
 import com.kihlberg.framework.interfaces.ICanvasDependant;
 import com.kihlberg.framework.interfaces.IGuiElement;
@@ -33,7 +35,7 @@ public class  BackgroundProvider extends SceneLayerProvider implements IBackgrou
     @Override
     public ISceneLayer GetLayer() {
         List<IGuiElement> elements = new ArrayList<IGuiElement>();
-        elements.add(guiElementProvider.CreateBox(0,0, canvasWidth, canvasHeight, colorProvider.GetSkyColor()));
+        elements.add(guiElementProvider.CreateBox(0,0, canvasWidth, canvasHeight, new BaseColorSetting( GuiElementType.Sky, colorProvider.GetSkyColor())));
         elements.addAll(sunVisualizationProvider.GetLayer());
         elements.addAll(moonVisualizationProvider.GetLayer());
         return new SceneLayer(elements);
