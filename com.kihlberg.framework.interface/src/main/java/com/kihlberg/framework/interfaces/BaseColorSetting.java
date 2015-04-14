@@ -17,4 +17,8 @@ public class BaseColorSetting {
     public int GetColor() {
         return this.color;
     }
+
+    public GuiElementType GetType() {
+        return this.type;
+    }
 }

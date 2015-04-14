@@ -15,12 +15,16 @@ import junit.framework.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyObject;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -52,7 +56,7 @@ public class testMoonVisualizationProvider {
         return Arrays.asList(new Object[][]{
                 //moon radii
                 {0,0,0,0,100,50,50},
-                {29.499,0,0,0,100,50,50},
+                {29.499,0,0,0,100,-50,-50},
                 {29.5/2,0,0,0,100,-50,50},
                 {29.5/4,0,0,0,100,50,0},
                 {29.5*3/4,0,0,0,100,-50,0},
@@ -84,14 +88,19 @@ public class testMoonVisualizationProvider {
         Mockito.when(monPosMock.getHeight()).thenReturn(this.moonHeight);
         Mockito.when(monPosMock.getOrientation()).thenReturn(this.moonOrientation);
         Mockito.when(colorProviderMock.GetMoonColor()).thenReturn(color );
-        Mockito.when(guiElementProviderMock.CreateMoon(this.x, this.y, this.radius1, this.radius2, new BaseColorSetting(GuiElementType.Moon, color), true)).thenReturn(moonMock);
+        BaseColorSetting color1 = new BaseColorSetting(GuiElementType.Moon, color);
+        Mockito.when(guiElementProviderMock.CreateMoon(eq(this.x), eq(this.y), eq(this.radius1), eq(this.radius2), any(BaseColorSetting.class), eq(true))).thenReturn(moonMock);
         Mockito.when(horizonProviderMock.GetHorizonYCoord()).thenReturn(canvasHeight);
 
         MoonVisualizationProvider obj = GetObject(astronomyProviderMock,horizonProviderMock,guiElementProviderMock,colorProviderMock );
         obj.NotifyCanvasSizeChanged(canvasWidth, canvasHeight);
         List<IGuiElement> result = obj.GetLayer();
 
-        Mockito.verify(guiElementProviderMock).CreateMoon(this.x, this.y, this.radius1, this.radius2, new BaseColorSetting(GuiElementType.Moon, color),true);
+        ArgumentCaptor<BaseColorSetting> argument = ArgumentCaptor.forClass(BaseColorSetting.class);
+        Mockito.verify(guiElementProviderMock).CreateMoon(eq(this.x), eq(this.y), eq(this.radius1), eq(this.radius2),argument.capture(),eq(true));
+
+        Assert.assertEquals(color, argument.getValue().GetColor());
+        Assert.assertEquals(GuiElementType.Moon, argument.getValue().GetType());
 
         Assert.assertEquals(1, result.size());
         Assert.assertEquals(moonMock, result.get(0));
