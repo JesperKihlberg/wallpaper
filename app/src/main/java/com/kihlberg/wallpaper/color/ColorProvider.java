@@ -30,7 +30,9 @@ public class ColorProvider implements IColorProvider {
 
     @Override
     public int GetSkyColor() {
+/*
         ISunPosition sunPostion = astronomyProvider.GetSunPosition();
+
         //night
         if(sunPostion.getHeight() < -18 )
         {
@@ -64,7 +66,7 @@ public class ColorProvider implements IColorProvider {
                 return GetSkySunsetStartColor();
             }
         }
-
+*/
         return GetSkyDayColor();
     }
 
@@ -84,6 +86,16 @@ public class ColorProvider implements IColorProvider {
         int greenPart = (int) (180 + Math.random()*60);
         int bluePart = (int) (15 + Math.random()*40);
         return Color.rgb(redPart,greenPart,bluePart);
+    }
+
+    @Override
+    public int GetRoofColor() {
+        return Color.RED;
+    }
+
+    @Override
+    public int GetSmallBuildingColor() {
+        return Color.WHITE;
     }
 
     private int GetSkySunsetStartColor() {

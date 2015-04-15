@@ -11,4 +11,8 @@ public interface IColorProvider {
     int GetMoonColor();
 
     int GetGroundColor();
+
+    int GetRoofColor();
+
+    int GetSmallBuildingColor();
 }

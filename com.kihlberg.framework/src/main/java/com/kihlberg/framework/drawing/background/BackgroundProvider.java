@@ -20,9 +20,6 @@ public class  BackgroundProvider extends SceneLayerProvider implements IBackgrou
     ISunVisualizationProvider sunVisualizationProvider = null;
     IMoonVisualizationProvider moonVisualizationProvider = null;
 
-    private float canvasWidth=0;
-    private float canvasHeight=0;
-
     public BackgroundProvider(IColorProvider colorProvider,
                               IGuiElementProvider guiElementProvider,
                               ISunVisualizationProvider  sunVisualizationProvider,
@@ -39,11 +36,5 @@ public class  BackgroundProvider extends SceneLayerProvider implements IBackgrou
         elements.addAll(sunVisualizationProvider.GetLayer());
         elements.addAll(moonVisualizationProvider.GetLayer());
         return new SceneLayer(elements);
-    }
-
-    @Override
-    public void NotifyCanvasSizeChanged(float width, float height) {
-        canvasWidth = width;
-        canvasHeight = height;
     }
 }

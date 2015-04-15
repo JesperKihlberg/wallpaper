@@ -17,8 +17,6 @@ import java.util.List;
  */
 public class ForegroundProvider extends SceneLayerProvider implements IForegroundProvider, ICanvasDependant {
 
-    private float canvasWidth= 0;
-    private float canvasHeight =0;
     private IForegroundLayerProvider foregroundLayerProvider1;
     private IForegroundLayerProvider foregroundLayerProvider2;
     private IForegroundLayerProvider foregroundLayerProvider3;
@@ -33,16 +31,10 @@ public class ForegroundProvider extends SceneLayerProvider implements IForegroun
     @Override
     public ISceneLayer GetLayer() {
         List<IGuiElement> elements = new ArrayList<IGuiElement>();
-        elements.addAll(foregroundLayerProvider1.GetLayer(0).GetLayerElements());
-        elements.addAll(foregroundLayerProvider2.GetLayer(canvasHeight/15).GetLayerElements());
-        elements.addAll(foregroundLayerProvider3.GetLayer(canvasHeight/10).GetLayerElements());
+        elements.addAll(foregroundLayerProvider1.GetLayer(0, 0.3f).GetLayerElements());
+        elements.addAll(foregroundLayerProvider2.GetLayer(canvasHeight/15, 0.5f).GetLayerElements());
+        elements.addAll(foregroundLayerProvider3.GetLayer(canvasHeight/10,1.0f).GetLayerElements());
         return new SceneLayer(elements);
-    }
-
-    @Override
-    public void NotifyCanvasSizeChanged(float width, float height) {
-        canvasWidth = width;
-        canvasHeight = height;
     }
 
 }

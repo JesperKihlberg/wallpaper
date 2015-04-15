@@ -16,20 +16,20 @@ import java.util.List;
 /**
  * Created by root on 4/11/15.
  */
-public class ForegroundLayerProvider implements ICanvasDependant, IForegroundLayerProvider {
+public class ForegroundLayerProvider extends CanvasDependant implements ICanvasDependant, IForegroundLayerProvider {
     protected IColorProvider colorProvider;
     protected IGuiElementProvider guiElementProvider;
     protected IHorizonProvider horizonProvider;
+    protected IHouseProvider houseProvider;
 
-    private float canvasWidth= 0;
-    private float canvasHeight =0;
     private float rand1 = 0;
     private float rand2 = 0;
     int color1;
-    public ForegroundLayerProvider(IColorProvider colorProvider, IGuiElementProvider guiElementProvider,IHorizonProvider horizonProvider) {
+    public ForegroundLayerProvider(IColorProvider colorProvider, IGuiElementProvider guiElementProvider,IHorizonProvider horizonProvider, IHouseProvider houseProvider) {
         this.colorProvider = colorProvider;
         this.guiElementProvider=guiElementProvider;
         this.horizonProvider=horizonProvider;
+        this.houseProvider=houseProvider;
 
         rand1 = (float) Math.random();
         rand2 = (float) Math.random();
@@ -37,21 +37,15 @@ public class ForegroundLayerProvider implements ICanvasDependant, IForegroundLay
     }
 
     @Override
-    public ISceneLayer GetLayer(float yShift) {
+    public ISceneLayer GetLayer(float yShift, float scale) {
         List<IGuiElement> elements = new ArrayList<IGuiElement>();
 
         float baseMinY=horizonProvider.GetHorizonYCoord()+yShift;
         float topPointX= (float) (canvasWidth*rand1);
         float topPointY =baseMinY + (float)((rand2-0.5)*canvasHeight/20);
         elements.add(guiElementProvider.CreateBezierTopBox(0, baseMinY, canvasWidth, canvasHeight, topPointX, topPointY, new BaseColorSetting( GuiElementType.Grassland, color1)));
-
+        elements.addAll(houseProvider.GetSmallHouse(topPointX,baseMinY,scale));
         return new SceneLayer(elements);
-    }
-
-    @Override
-    public void NotifyCanvasSizeChanged(float width, float height) {
-        canvasWidth = width;
-        canvasHeight = height;
     }
 
 }

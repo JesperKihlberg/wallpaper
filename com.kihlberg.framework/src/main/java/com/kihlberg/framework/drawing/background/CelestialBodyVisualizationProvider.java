@@ -2,6 +2,7 @@ package com.kihlberg.framework.drawing.background;
 
 import com.kihlberg.framework.astronomy.IAstronomyElementPosition;
 import com.kihlberg.framework.astronomy.IAstronomyProvider;
+import com.kihlberg.framework.drawing.foreground.CanvasDependant;
 import com.kihlberg.framework.interfaces.ICanvasDependant;
 import com.kihlberg.framework.interfaces.IColorProvider;
 import com.kihlberg.framework.interfaces.IGuiElement;
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * Created by root on 4/1/15.
  */
-public abstract class CelestialBodyVisualizationProvider implements ICanvasDependant, ICelestialBodyVisualizationProvider {
+public abstract class CelestialBodyVisualizationProvider extends CanvasDependant implements ICanvasDependant, ICelestialBodyVisualizationProvider {
     IAstronomyProvider astronomyProvider = null;
     IHorizonProvider horizonProvider = null;
     IGuiElementProvider guiElementProvider = null;
@@ -65,13 +66,12 @@ public abstract class CelestialBodyVisualizationProvider implements ICanvasDepen
 
     @Override
     public void NotifyCanvasSizeChanged(float width, float height) {
-        canvasWidth = width;
-        canvasHeight = height;
+        super.NotifyCanvasSizeChanged(width,height);
         skyHeight = horizonProvider.GetHorizonYCoord();
-        skyWidth = canvasWidth;
+        skyWidth = width;
         celestialBodyMinX = skyHeight / 5;
         celestialBodyMaxX =skyHeight * 9 / 5;
         celestialBodyMinY = 0;
-        celestialBodyMaxY = canvasWidth;
+        celestialBodyMaxY = width;
     }
 }
