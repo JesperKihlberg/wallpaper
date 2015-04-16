@@ -34,21 +34,28 @@ public class HouseProvider extends CanvasDependant implements IHouseProvider {
         float houseWidth = canvasWidth * widthPercentage * scale;
         float houseHeight = houseWidth * widthHeightCorrelation;
         ArrayList<IGuiElement> elements = new ArrayList<>();
-        elements.addAll(GetFirstHousePart(minX, minY,houseWidth, houseHeight, firstHousePartPercentage));
-        elements.addAll(GetSecondHousePart(minX+houseWidth*firstHousePartPercentage, minY,houseWidth, houseHeight, 1-3*firstHousePartPercentage));
-        elements.addAll(GetThirdHousePart(minX+houseWidth*(1-2*firstHousePartPercentage), minY,houseWidth, houseHeight, firstHousePartPercentage*2));
-//        IGuiElement roof =  guiElementProvider.CreateTriangle(minX, minY + houseHeight * roofPercentage, minX + houseWidth*0.5f, minY, minX + houseWidth, minY + houseHeight * roofPercentage, new BaseColorSetting(GuiElementType.Roof, colorProvider.GetRoofColor()));
-//        elements.add(roof);
-//        IGuiElement base =  guiElementProvider.CreateBox(minX + overhangPercentage*houseWidth, minY + houseHeight * roofPercentage, minX + houseWidth - overhangPercentage*houseWidth, minY + houseHeight, new BaseColorSetting(GuiElementType.SmallBuilding, colorProvider.GetSmallBuildingColor1()));
-//        elements.add(base);
-        return elements;
+        boolean isLeftOriented = true;
+        if(isLeftOriented) {
+            elements.addAll(GetThirdHousePart(minX, minY, houseWidth, houseHeight, firstHousePartPercentage * 2, isLeftOriented));
+            elements.addAll(GetSecondHousePart(minX + houseWidth * 2* firstHousePartPercentage, minY, houseWidth, houseHeight, 1 - 3 * firstHousePartPercentage, isLeftOriented));
+            elements.addAll(GetFirstHousePart(minX + houseWidth *  (1 - firstHousePartPercentage), minY, houseWidth, houseHeight, firstHousePartPercentage, isLeftOriented));
+        }
+        else{
+            elements.addAll(GetFirstHousePart(minX, minY, houseWidth, houseHeight, firstHousePartPercentage, isLeftOriented));
+            elements.addAll(GetSecondHousePart(minX + houseWidth * firstHousePartPercentage, minY, houseWidth, houseHeight, 1 - 3 * firstHousePartPercentage, isLeftOriented));
+            elements.addAll(GetThirdHousePart(minX + houseWidth * (1 - 2 * firstHousePartPercentage), minY, houseWidth, houseHeight, firstHousePartPercentage * 2, isLeftOriented));
+        }
+       return elements;
     }
 
-    private List<IGuiElement> GetFirstHousePart(float minX, float minY, float houseWidth, float houseHeight, float partPercentage){
+    private List<IGuiElement> GetFirstHousePart(float minX, float minY, float houseWidth, float houseHeight, float partPercentage, boolean isLeftOriented){
+        float topPointX = (float) Math.ceil(minX + houseWidth*partPercentage);
+        if(isLeftOriented)
+            topPointX = minX;
         ArrayList<IGuiElement> elements = new ArrayList<>();
         IGuiElement roof =  guiElementProvider.CreateTriangle(
                 minX, minY + houseHeight * roofPercentage,
-                (float) Math.ceil(minX + houseWidth*partPercentage), minY,
+                topPointX, minY,
                 (float) Math.ceil(minX + houseWidth*partPercentage), minY + houseHeight * roofPercentage,
                 new BaseColorSetting(GuiElementType.Roof, colorProvider.GetRoofColor()));
         elements.add(roof);
@@ -56,49 +63,58 @@ public class HouseProvider extends CanvasDependant implements IHouseProvider {
         IGuiElement base =  guiElementProvider.CreateBox(
                 minX, minY + houseHeight * roofPercentage,
                 (float) Math.ceil(minX + houseWidth*partPercentage), minY + houseHeight,
-                new BaseColorSetting(GuiElementType.SmallBuilding, colorProvider.GetSmallBuildingColor1()));
+                new BaseColorSetting(GuiElementType.SmallBuilding, isLeftOriented?colorProvider.GetSmallBuildingColor2():colorProvider.GetSmallBuildingColor1()));
         elements.add(base);
 
         return  elements;
     }
 
-    private List<IGuiElement> GetSecondHousePart(float minX, float minY, float houseWidth, float houseHeight, float partPercentage){
+    private List<IGuiElement> GetSecondHousePart(float minX, float minY, float houseWidth, float houseHeight, float partPercentage, boolean isLeftOriented){
         ArrayList<IGuiElement> elements = new ArrayList<>();
         IGuiElement roof =  guiElementProvider.CreateBox(
                 minX, minY,
-                (float) Math.ceil(minX+houseWidth*partPercentage),  minY + houseHeight * roofPercentage,
+                (float) Math.ceil(minX + houseWidth * partPercentage), minY + houseHeight * roofPercentage,
                 new BaseColorSetting(GuiElementType.Roof, colorProvider.GetRoofColor()));
         elements.add(roof);
 
         IGuiElement base =  guiElementProvider.CreateBox(
                 minX, minY + houseHeight * roofPercentage,
                 (float) Math.ceil(minX + houseWidth*partPercentage), minY + houseHeight,
-                new BaseColorSetting(GuiElementType.SmallBuilding, colorProvider.GetSmallBuildingColor1()));
+                new BaseColorSetting(GuiElementType.SmallBuilding, isLeftOriented?colorProvider.GetSmallBuildingColor2():colorProvider.GetSmallBuildingColor1()));
         elements.add(base);
 
         return  elements;
     }
 
-    private List<IGuiElement> GetThirdHousePart(float minX, float minY, float houseWidth, float houseHeight, float partPercentage){
+    private List<IGuiElement> GetThirdHousePart(float minX, float minY, float houseWidth, float houseHeight, float partPercentage, boolean isLeftOriented){
         ArrayList<IGuiElement> elements = new ArrayList<>();
-        IGuiElement roof =  guiElementProvider.CreateTriangle(
-                minX, minY,
-                minX + houseWidth*partPercentage/2, minY,
-                minX, minY + houseHeight * roofPercentage,
-                new BaseColorSetting(GuiElementType.Roof, colorProvider.GetRoofColor()));
-        elements.add(roof);
-
+        if(isLeftOriented){
+            IGuiElement roof = guiElementProvider.CreateTriangle(
+                    minX + houseWidth * partPercentage, minY,
+                    minX+ houseWidth * partPercentage, minY + houseHeight * roofPercentage,
+                    minX + houseWidth * partPercentage / 2, minY,
+                    new BaseColorSetting(GuiElementType.Roof, colorProvider.GetRoofColor()));
+            elements.add(roof);
+        }
+        else {
+            IGuiElement roof = guiElementProvider.CreateTriangle(
+                    minX, minY,
+                    minX + houseWidth * partPercentage / 2, minY,
+                    minX, minY + houseHeight * roofPercentage,
+                    new BaseColorSetting(GuiElementType.Roof, colorProvider.GetRoofColor()));
+            elements.add(roof);
+        }
         IGuiElement topfacade =  guiElementProvider.CreateTriangle(
                 minX, minY + houseHeight * roofPercentage,
                 minX + houseWidth*partPercentage/2, minY,
                 minX + houseWidth*partPercentage, minY + houseHeight * roofPercentage,
-                new BaseColorSetting(GuiElementType.Roof, colorProvider.GetSmallBuildingColor2()));
+                new BaseColorSetting(GuiElementType.Roof, isLeftOriented?colorProvider.GetSmallBuildingColor1():colorProvider.GetSmallBuildingColor2()));
         elements.add(topfacade);
 
         IGuiElement base =  guiElementProvider.CreateBox(
                 minX, minY + houseHeight * roofPercentage,
                 minX + houseWidth*partPercentage, minY + houseHeight,
-                new BaseColorSetting(GuiElementType.SmallBuilding, colorProvider.GetSmallBuildingColor2()));
+                new BaseColorSetting(GuiElementType.SmallBuilding, isLeftOriented?colorProvider.GetSmallBuildingColor1():colorProvider.GetSmallBuildingColor2()));
         elements.add(base);
 
         return  elements;
