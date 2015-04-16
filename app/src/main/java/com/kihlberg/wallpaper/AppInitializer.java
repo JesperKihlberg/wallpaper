@@ -66,10 +66,10 @@ public class AppInitializer {
         houseProvider = new HouseProvider(guiElementProvider, colorProvider);
         sunVisualizationProvider = new SunVisualizationProvider(astronomyProvider,horizonProvider, guiElementProvider, colorProvider);
         moonVisualizationProvider= new MoonVisualizationProvider(astronomyProvider,horizonProvider, guiElementProvider, colorProvider);
-        foregroundLayerProvider1 = new ForegroundLayerProvider(colorProvider,guiElementProvider,horizonProvider,houseProvider);
-        foregroundLayerProvider2= new ForegroundLayerProvider(colorProvider,guiElementProvider,horizonProvider,houseProvider);
-        foregroundLayerProvider3= new ForegroundLayerProvider(colorProvider,guiElementProvider,horizonProvider,houseProvider);
-        foregroundProvider = new ForegroundProvider( colorProvider, guiElementProvider, foregroundLayerProvider1,foregroundLayerProvider2, foregroundLayerProvider3);
+        foregroundLayerProvider1 = new ForegroundLayerProvider(colorProvider,guiElementProvider,houseProvider);
+        foregroundLayerProvider2= new ForegroundLayerProvider(colorProvider,guiElementProvider,houseProvider);
+        foregroundLayerProvider3= new ForegroundLayerProvider(colorProvider,guiElementProvider,houseProvider);
+        foregroundProvider = new ForegroundProvider( colorProvider, guiElementProvider, foregroundLayerProvider1,foregroundLayerProvider2, foregroundLayerProvider3,horizonProvider);
         backgroundProvider = new BackgroundProvider(colorProvider, guiElementProvider, sunVisualizationProvider, moonVisualizationProvider);
         sceneProvider= new SceneProvider(foregroundProvider, backgroundProvider);
         canvasDependants.add(houseProvider);
