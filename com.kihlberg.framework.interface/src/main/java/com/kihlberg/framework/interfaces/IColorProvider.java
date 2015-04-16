@@ -14,5 +14,7 @@ public interface IColorProvider {
 
     int GetRoofColor();
 
-    int GetSmallBuildingColor();
+    int GetSmallBuildingColor1();
+
+    int GetSmallBuildingColor2();
 }

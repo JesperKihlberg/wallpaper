@@ -94,8 +94,14 @@ public class ColorProvider implements IColorProvider {
     }
 
     @Override
-    public int GetSmallBuildingColor() {
+    public int GetSmallBuildingColor1() {
         return Color.WHITE;
+    }
+
+    @Override
+    public int GetSmallBuildingColor2() {
+        return Color.rgb(230,230,230
+        );
     }
 
     private int GetSkySunsetStartColor() {
