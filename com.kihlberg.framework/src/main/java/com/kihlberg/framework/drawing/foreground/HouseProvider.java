@@ -30,12 +30,13 @@ public class HouseProvider extends CanvasDependant implements IHouseProvider {
 
     @Override
     public List<IGuiElement> GetSmallHouse(float minX, float minY, float scale){
+        float firstHousePartPercentage = 0.25f;
         float houseWidth = canvasWidth * widthPercentage * scale;
         float houseHeight = houseWidth * widthHeightCorrelation;
         ArrayList<IGuiElement> elements = new ArrayList<>();
-        elements.addAll(GetFirstHousePart(minX, minY,houseWidth, houseHeight, 0.10f));
-        elements.addAll(GetSecondHousePart(minX+houseWidth*0.1f, minY,houseWidth, houseHeight, 0.70f));
-        elements.addAll(GetThirdHousePart(minX+houseWidth*0.8f, minY,houseWidth, houseHeight, 0.20f));
+        elements.addAll(GetFirstHousePart(minX, minY,houseWidth, houseHeight, firstHousePartPercentage));
+        elements.addAll(GetSecondHousePart(minX+houseWidth*firstHousePartPercentage, minY,houseWidth, houseHeight, 1-3*firstHousePartPercentage));
+        elements.addAll(GetThirdHousePart(minX+houseWidth*(1-2*firstHousePartPercentage), minY,houseWidth, houseHeight, firstHousePartPercentage*2));
 //        IGuiElement roof =  guiElementProvider.CreateTriangle(minX, minY + houseHeight * roofPercentage, minX + houseWidth*0.5f, minY, minX + houseWidth, minY + houseHeight * roofPercentage, new BaseColorSetting(GuiElementType.Roof, colorProvider.GetRoofColor()));
 //        elements.add(roof);
 //        IGuiElement base =  guiElementProvider.CreateBox(minX + overhangPercentage*houseWidth, minY + houseHeight * roofPercentage, minX + houseWidth - overhangPercentage*houseWidth, minY + houseHeight, new BaseColorSetting(GuiElementType.SmallBuilding, colorProvider.GetSmallBuildingColor1()));
