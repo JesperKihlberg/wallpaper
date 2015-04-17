@@ -31,10 +31,10 @@ public class HouseProvider extends CanvasDependant implements IHouseProvider {
     @Override
     public List<IGuiElement> GetSmallHouse(float minX, float minY, float scale){
         float firstHousePartPercentage = 0.25f;
+        boolean isLeftOriented = true;
         float houseWidth = canvasWidth * widthPercentage * scale;
         float houseHeight = houseWidth * widthHeightCorrelation;
         ArrayList<IGuiElement> elements = new ArrayList<>();
-        boolean isLeftOriented = true;
         if(isLeftOriented) {
             elements.addAll(GetThirdHousePart(minX, minY, houseWidth, houseHeight, firstHousePartPercentage * 2, isLeftOriented));
             elements.addAll(GetSecondHousePart(minX + houseWidth * 2* firstHousePartPercentage, minY, houseWidth, houseHeight, 1 - 3 * firstHousePartPercentage, isLeftOriented));

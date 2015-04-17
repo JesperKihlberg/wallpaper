@@ -26,6 +26,8 @@ public class WallpaperCanvasService implements IWallpaperCanvasService
     private IUpdatableCanvasSizeProvider updatableCanvasSizeProvider;
     private IAstronomyProvider astronomyProvider;
 
+    ISceneLayer cachedForeground ;
+
     private ITimeProvider timeProvider;
 
     public WallpaperCanvasService(ISceneProvider sceneProvider,

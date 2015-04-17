@@ -29,16 +29,29 @@ public class ForegroundProvider extends SceneLayerProvider implements IForegroun
         this.foregroundLayerProvider2=foregroundLayerProvider2;
         this.foregroundLayerProvider3=foregroundLayerProvider3;
         this.horizonProvider=horizonProvider;
+        float horizon = horizonProvider.GetHorizonYCoord();
+        foregroundLayerProvider1.Initialize(horizon, horizon + canvasHeight/15, 0.3f);
+        foregroundLayerProvider2.Initialize(horizon + canvasHeight / 15, horizon + canvasHeight / 10, 0.5f);
+        foregroundLayerProvider3.Initialize(horizon + canvasHeight / 10, canvasHeight, 1.0f);
+
     }
 
     @Override
     public ISceneLayer GetLayer() {
         List<IGuiElement> elements = new ArrayList<IGuiElement>();
-        float horizon = horizonProvider.GetHorizonYCoord();
-        elements.addAll(foregroundLayerProvider1.GetLayer(horizon, horizon + canvasHeight/15, 0.3f).GetLayerElements());
-        elements.addAll(foregroundLayerProvider2.GetLayer(horizon + canvasHeight/15,horizon + canvasHeight/10, 0.5f).GetLayerElements());
-        elements.addAll(foregroundLayerProvider3.GetLayer(horizon + canvasHeight/10, canvasHeight, 1.0f).GetLayerElements());
+
+        elements.addAll(foregroundLayerProvider1.GetLayer().GetLayerElements());
+        elements.addAll(foregroundLayerProvider2.GetLayer().GetLayerElements());
+        elements.addAll(foregroundLayerProvider3.GetLayer().GetLayerElements());
         return new SceneLayer(elements);
     }
 
+    @Override
+    public void NotifyCanvasSizeChanged(float width, float height) {
+        super.NotifyCanvasSizeChanged(width, height);
+        float horizon = horizonProvider.GetHorizonYCoord();
+        foregroundLayerProvider1.Initialize(horizon, horizon + canvasHeight/15, 0.3f);
+        foregroundLayerProvider2.Initialize(horizon + canvasHeight / 15, horizon + canvasHeight / 10, 0.5f);
+        foregroundLayerProvider3.Initialize(horizon + canvasHeight / 10, canvasHeight, 1.0f);
+    }
 }

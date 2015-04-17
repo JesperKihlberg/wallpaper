@@ -6,5 +6,6 @@ import com.kihlberg.framework.drawing.layers.ISceneLayer;
  * Created by root on 4/11/15.
  */
 public interface IForegroundLayerProvider {
-    ISceneLayer GetLayer(float yStart, float yEnd, float scale);
+    void Initialize(float yStart, float yEnd, float scale);
+    ISceneLayer GetLayer();
 }

@@ -19,24 +19,36 @@ import java.util.List;
 public class ForegroundLayerProvider extends CanvasDependant implements ICanvasDependant, IForegroundLayerProvider {
     protected IColorProvider colorProvider;
     protected IGuiElementProvider guiElementProvider;
-    protected IHouseProvider houseProvider;
+    protected IHouseCollectionProvider houseCollectionProvider;
 
     private float rand1 = 0;
     private float rand2 = 0;
-    int color1;
-    public ForegroundLayerProvider(IColorProvider colorProvider, IGuiElementProvider guiElementProvider,IHouseProvider houseProvider) {
+    ISceneLayer sceneLayer;
+    float yStart, yEnd, scale;
+
+    public ForegroundLayerProvider(IColorProvider colorProvider, IGuiElementProvider guiElementProvider, IHouseCollectionProvider houseCollectionProvider) {
         this.colorProvider = colorProvider;
-        this.guiElementProvider=guiElementProvider;
-        this.houseProvider=houseProvider;
+        this.guiElementProvider = guiElementProvider;
+        this.houseCollectionProvider = houseCollectionProvider;
+    }
+
+    public void Initialize(float yStart, float yEnd, float scale){
+        this.yStart=yStart;
+        this.yEnd=yEnd;
+        this.scale = scale;
+        UpdateLayer();
+    }
+
+    public ISceneLayer GetLayer() {
+        return sceneLayer;
+    }
+
+    private void UpdateLayer(){
+        List<IGuiElement> elements = new ArrayList<IGuiElement>();
 
         rand1 = (float) Math.random();
         rand2 = (float) Math.random();
-        color1 = colorProvider.GetGroundColor();
-    }
-
-    @Override
-    public ISceneLayer GetLayer(float yStart, float yEnd, float scale) {
-        List<IGuiElement> elements = new ArrayList<IGuiElement>();
+        int color1 = colorProvider.GetGroundColor();
 
         float baseMinY=yStart;
         float topPointX= (float) (canvasWidth*rand1);
@@ -44,9 +56,15 @@ public class ForegroundLayerProvider extends CanvasDependant implements ICanvasD
         elements.add(guiElementProvider.CreateBezierTopBox(0, baseMinY, canvasWidth, canvasHeight, topPointX, topPointY,
                 new BaseColorSetting( GuiElementType.Grassland, color1)));
 
-        elements.addAll(houseProvider.GetSmallHouse(topPointX,baseMinY,scale));
+        elements.addAll(houseCollectionProvider.GetHouses(yStart,yEnd,0, canvasWidth,10,0,0,scale));
 
-        return new SceneLayer(elements);
+        this.sceneLayer=new SceneLayer(elements);
+
     }
 
+    @Override
+    public void NotifyCanvasSizeChanged(float width, float height) {
+        super.NotifyCanvasSizeChanged(width, height);
+        UpdateLayer();
+    }
 }
