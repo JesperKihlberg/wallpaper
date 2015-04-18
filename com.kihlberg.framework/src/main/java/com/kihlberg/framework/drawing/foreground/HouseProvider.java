@@ -9,46 +9,43 @@ import com.kihlberg.framework.interfaces.IGuiElementProvider;
 import java.util.ArrayList;
 import java.util.List;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 /**
  * Created by root on 4/12/15.
  */
 public class HouseProvider extends CanvasDependant implements IHouseProvider {
     IGuiElementProvider guiElementProvider;
     IColorProvider colorProvider;
+    IHouseSettingsProvider houseSettingsProvider;
 
-    static float widthHeightCorrelation = 0.5f;
-    static float widthPercentage =0.1f;
-    static float roofPercentage = 0.45f;
-    static float overhangPercentage =0.1f;
-
-    public HouseProvider(IGuiElementProvider guiElementProvider, IColorProvider colorProvider) {
+    public HouseProvider(IGuiElementProvider guiElementProvider, IColorProvider colorProvider, IHouseSettingsProvider houseSettingsProvider) {
         this.guiElementProvider = guiElementProvider;
         this.colorProvider = colorProvider;
+        this.houseSettingsProvider=houseSettingsProvider;
     }
 
     @Override
     public List<IGuiElement> GetSmallHouse(float minX, float minY, float scale){
-        float firstHousePartPercentage = 0.25f;
-        boolean isLeftOriented = true;
-        float houseWidth = canvasWidth * widthPercentage * scale;
-        float houseHeight = houseWidth * widthHeightCorrelation;
+        IHouseSettings houseSettings = houseSettingsProvider.GetHouseSettings();
+        float houseWidth = canvasWidth * houseSettings.GetWidthPercentage() * scale;
+        float houseHeight = houseWidth * houseSettings.GetWidthHeightCorrelation();
+        boolean isLeftOriented = houseSettings.GetIsLeftOriented();
         ArrayList<IGuiElement> elements = new ArrayList<>();
+        float firstHousePartPercentage = houseSettings.GetFirstHousePartPercentage();
+        float roofPercentage =houseSettings.GetRoofPercentage();
         if(isLeftOriented) {
-            elements.addAll(GetThirdHousePart(minX, minY, houseWidth, houseHeight, firstHousePartPercentage * 2, isLeftOriented));
-            elements.addAll(GetSecondHousePart(minX + houseWidth * 2* firstHousePartPercentage, minY, houseWidth, houseHeight, 1 - 3 * firstHousePartPercentage, isLeftOriented));
-            elements.addAll(GetFirstHousePart(minX + houseWidth *  (1 - firstHousePartPercentage), minY, houseWidth, houseHeight, firstHousePartPercentage, isLeftOriented));
+            elements.addAll(GetThirdHousePart(minX, minY-houseHeight/2, houseWidth, houseHeight, firstHousePartPercentage * 2, isLeftOriented,roofPercentage ));
+            elements.addAll(GetSecondHousePart(minX + houseWidth * 2* firstHousePartPercentage, minY-houseHeight/2, houseWidth, houseHeight, 1 - 3 * firstHousePartPercentage, isLeftOriented,roofPercentage ));
+            elements.addAll(GetFirstHousePart(minX + houseWidth *  (1 - firstHousePartPercentage), minY-houseHeight/2, houseWidth, houseHeight, firstHousePartPercentage, isLeftOriented,roofPercentage ));
         }
         else{
-            elements.addAll(GetFirstHousePart(minX, minY, houseWidth, houseHeight, firstHousePartPercentage, isLeftOriented));
-            elements.addAll(GetSecondHousePart(minX + houseWidth * firstHousePartPercentage, minY, houseWidth, houseHeight, 1 - 3 * firstHousePartPercentage, isLeftOriented));
-            elements.addAll(GetThirdHousePart(minX + houseWidth * (1 - 2 * firstHousePartPercentage), minY, houseWidth, houseHeight, firstHousePartPercentage * 2, isLeftOriented));
+            elements.addAll(GetFirstHousePart(minX, minY-houseHeight/2, houseWidth, houseHeight, firstHousePartPercentage, isLeftOriented,roofPercentage ));
+            elements.addAll(GetSecondHousePart(minX + houseWidth * firstHousePartPercentage, minY-houseHeight/2, houseWidth, houseHeight, 1 - 3 * firstHousePartPercentage, isLeftOriented,roofPercentage ));
+            elements.addAll(GetThirdHousePart(minX + houseWidth * (1 - 2 * firstHousePartPercentage), minY-houseHeight/2, houseWidth, houseHeight, firstHousePartPercentage * 2, isLeftOriented,roofPercentage ));
         }
        return elements;
     }
 
-    private List<IGuiElement> GetFirstHousePart(float minX, float minY, float houseWidth, float houseHeight, float partPercentage, boolean isLeftOriented){
+    private List<IGuiElement> GetFirstHousePart(float minX, float minY, float houseWidth, float houseHeight, float partPercentage, boolean isLeftOriented, float roofPercentage){
         float topPointX = (float) Math.ceil(minX + houseWidth*partPercentage);
         if(isLeftOriented)
             topPointX = minX;
@@ -69,7 +66,7 @@ public class HouseProvider extends CanvasDependant implements IHouseProvider {
         return  elements;
     }
 
-    private List<IGuiElement> GetSecondHousePart(float minX, float minY, float houseWidth, float houseHeight, float partPercentage, boolean isLeftOriented){
+    private List<IGuiElement> GetSecondHousePart(float minX, float minY, float houseWidth, float houseHeight, float partPercentage, boolean isLeftOriented, float roofPercentage){
         ArrayList<IGuiElement> elements = new ArrayList<>();
         IGuiElement roof =  guiElementProvider.CreateBox(
                 minX, minY,
@@ -86,7 +83,7 @@ public class HouseProvider extends CanvasDependant implements IHouseProvider {
         return  elements;
     }
 
-    private List<IGuiElement> GetThirdHousePart(float minX, float minY, float houseWidth, float houseHeight, float partPercentage, boolean isLeftOriented){
+    private List<IGuiElement> GetThirdHousePart(float minX, float minY, float houseWidth, float houseHeight, float partPercentage, boolean isLeftOriented, float roofPercentage){
         ArrayList<IGuiElement> elements = new ArrayList<>();
         if(isLeftOriented){
             IGuiElement roof = guiElementProvider.CreateTriangle(

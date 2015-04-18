@@ -6,8 +6,10 @@ import com.kihlberg.framework.astronomy.ILocationProvider;
 import com.kihlberg.framework.drawing.foreground.ForegroundLayerProvider;
 import com.kihlberg.framework.drawing.foreground.HouseCollectionProvider;
 import com.kihlberg.framework.drawing.foreground.HouseProvider;
+import com.kihlberg.framework.drawing.foreground.HouseSettingsProvider;
 import com.kihlberg.framework.drawing.foreground.IHouseCollectionProvider;
 import com.kihlberg.framework.drawing.foreground.IHouseProvider;
+import com.kihlberg.framework.drawing.foreground.IHouseSettingsProvider;
 import com.kihlberg.framework.interfaces.ICanvasDependant;
 import com.kihlberg.framework.interfaces.IColorProvider;
 import com.kihlberg.framework.interfaces.IGuiElementProvider;
@@ -44,6 +46,7 @@ public class AppInitializer {
     private ITimeProvider timeProvider = null;
     private IWeatherProvider weatherProvider = null;
     private IAstronomyProvider astronomyProvider = null;
+    private IHouseSettingsProvider houseSettingsProvider = null;
     private IHouseProvider houseProvider = null;
     private IHouseCollectionProvider houseCollectionProvider = null;
     private ForegroundProvider foregroundProvider = null;
@@ -66,7 +69,8 @@ public class AppInitializer {
 //        skyProvider = new SkyProvider(astronomyProvider, weatherProvider);
         horizonProvider = new HorizonProvider();
         colorProvider = new ColorProvider(weatherProvider, astronomyProvider, timeProvider);
-        houseProvider = new HouseProvider(guiElementProvider, colorProvider);
+        houseSettingsProvider= new HouseSettingsProvider();
+        houseProvider = new HouseProvider(guiElementProvider, colorProvider, houseSettingsProvider);
         houseCollectionProvider=new HouseCollectionProvider(houseProvider);
         sunVisualizationProvider = new SunVisualizationProvider(astronomyProvider,horizonProvider, guiElementProvider, colorProvider);
         moonVisualizationProvider= new MoonVisualizationProvider(astronomyProvider,horizonProvider, guiElementProvider, colorProvider);
