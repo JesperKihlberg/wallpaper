@@ -17,4 +17,8 @@ public interface IColorProvider {
     int GetSmallBuildingColor1();
 
     int GetSmallBuildingColor2();
+
+    int GetTreeCrownColor();
+
+    int GetTreeTrunkColor();
 }

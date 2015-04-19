@@ -10,6 +10,8 @@ import com.kihlberg.framework.drawing.foreground.HouseSettingsProvider;
 import com.kihlberg.framework.drawing.foreground.IHouseCollectionProvider;
 import com.kihlberg.framework.drawing.foreground.IHouseProvider;
 import com.kihlberg.framework.drawing.foreground.IHouseSettingsProvider;
+import com.kihlberg.framework.drawing.foreground.ITreeProvider;
+import com.kihlberg.framework.drawing.foreground.TreeProvider;
 import com.kihlberg.framework.interfaces.ICanvasDependant;
 import com.kihlberg.framework.interfaces.IColorProvider;
 import com.kihlberg.framework.interfaces.IGuiElementProvider;
@@ -51,6 +53,7 @@ public class AppInitializer {
     private IHouseCollectionProvider houseCollectionProvider = null;
     private ForegroundProvider foregroundProvider = null;
     private BackgroundProvider backgroundProvider = null;
+    private ITreeProvider treeProvider=null;
 //    private ISkyProvider skyProvider = null;
     private ISceneProvider sceneProvider = null;
     private IUpdatableCanvasSizeProvider canvasSizeProvider = null;
@@ -74,10 +77,10 @@ public class AppInitializer {
         houseCollectionProvider=new HouseCollectionProvider(houseProvider);
         sunVisualizationProvider = new SunVisualizationProvider(astronomyProvider,horizonProvider, guiElementProvider, colorProvider);
         moonVisualizationProvider= new MoonVisualizationProvider(astronomyProvider,horizonProvider, guiElementProvider, colorProvider);
-
-        foregroundLayerProvider1 = new ForegroundLayerProvider(colorProvider,guiElementProvider,houseCollectionProvider);
-        foregroundLayerProvider2= new ForegroundLayerProvider(colorProvider,guiElementProvider,houseCollectionProvider);
-        foregroundLayerProvider3= new ForegroundLayerProvider(colorProvider,guiElementProvider,houseCollectionProvider);
+        treeProvider= new TreeProvider(colorProvider, guiElementProvider);
+        foregroundLayerProvider1 = new ForegroundLayerProvider(colorProvider,guiElementProvider,houseCollectionProvider,treeProvider);
+        foregroundLayerProvider2= new ForegroundLayerProvider(colorProvider,guiElementProvider,houseCollectionProvider,treeProvider);
+        foregroundLayerProvider3= new ForegroundLayerProvider(colorProvider,guiElementProvider,houseCollectionProvider,treeProvider);
         foregroundProvider = new ForegroundProvider( colorProvider, guiElementProvider, foregroundLayerProvider1,foregroundLayerProvider2, foregroundLayerProvider3,horizonProvider);
         backgroundProvider = new BackgroundProvider(colorProvider, guiElementProvider, sunVisualizationProvider, moonVisualizationProvider);
         sceneProvider= new SceneProvider(foregroundProvider, backgroundProvider);
@@ -85,6 +88,7 @@ public class AppInitializer {
         canvasDependants.add(horizonProvider);
         canvasDependants.add(sunVisualizationProvider);
         canvasDependants.add(moonVisualizationProvider);
+        canvasDependants.add(treeProvider);
         canvasDependants.add(foregroundProvider);
         canvasDependants.add(foregroundLayerProvider1);
         canvasDependants.add(foregroundLayerProvider2);

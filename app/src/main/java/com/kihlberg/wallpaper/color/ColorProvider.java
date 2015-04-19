@@ -104,6 +104,16 @@ public class ColorProvider implements IColorProvider {
         );
     }
 
+    @Override
+    public int GetTreeCrownColor() {
+        return Color.GREEN;
+    }
+
+    @Override
+    public int GetTreeTrunkColor() {
+        return Color.BLACK;
+    }
+
     private int GetSkySunsetStartColor() {
         return Color.rgb(51, 139, 183);
     }

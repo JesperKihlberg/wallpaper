@@ -20,16 +20,18 @@ public class ForegroundLayerProvider extends CanvasDependant implements ICanvasD
     protected IColorProvider colorProvider;
     protected IGuiElementProvider guiElementProvider;
     protected IHouseCollectionProvider houseCollectionProvider;
+    protected  ITreeProvider treeProvider;
 
     private float rand1 = 0;
     private float rand2 = 0;
     ISceneLayer sceneLayer;
     float yStart, yEnd, scale;
 
-    public ForegroundLayerProvider(IColorProvider colorProvider, IGuiElementProvider guiElementProvider, IHouseCollectionProvider houseCollectionProvider) {
+    public ForegroundLayerProvider(IColorProvider colorProvider, IGuiElementProvider guiElementProvider, IHouseCollectionProvider houseCollectionProvider,ITreeProvider treeProvider) {
         this.colorProvider = colorProvider;
         this.guiElementProvider = guiElementProvider;
         this.houseCollectionProvider = houseCollectionProvider;
+        this.treeProvider=treeProvider;
     }
 
     public void Initialize(float yStart, float yEnd, float scale){
@@ -55,7 +57,7 @@ public class ForegroundLayerProvider extends CanvasDependant implements ICanvasD
         float topPointY =baseMinY + (float)((rand2-0.5)*canvasHeight/20);
         elements.add(guiElementProvider.CreateBezierTopBox(0, baseMinY, canvasWidth, canvasHeight, topPointX, topPointY,
                 new BaseColorSetting( GuiElementType.Grassland, color1)));
-
+        elements.addAll(treeProvider.GetTree(topPointX, topPointY, scale));
         elements.addAll(houseCollectionProvider.GetHouses(yStart,yEnd,0, canvasWidth,10,0,0,scale));
 
         this.sceneLayer=new SceneLayer(elements);
