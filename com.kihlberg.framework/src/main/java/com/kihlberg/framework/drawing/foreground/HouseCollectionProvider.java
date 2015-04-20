@@ -5,6 +5,7 @@ import com.kihlberg.framework.interfaces.IGuiElement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.TreeMap;
 
 /**
  * Created by root on 4/16/15.
@@ -17,12 +18,12 @@ public class HouseCollectionProvider implements IHouseCollectionProvider {
     }
 
     @Override
-    public List<IGuiElement> GetHouses(float minY, float maxY, float minX, float maxX, int smallHouseCount, int mediumHouseCount, int largeHouseCount, float scale){
-        ArrayList<IGuiElement> elements = new ArrayList<IGuiElement>();
+    public TreeMap<Integer,IGuiElement> GetHouses(float minY, float maxY, float minX, float maxX, int smallHouseCount, int mediumHouseCount, int largeHouseCount, float scale){
+        TreeMap<Integer,IGuiElement> elements = new TreeMap<Integer,IGuiElement>();
         float[] ycoords = CreateYCoords(smallHouseCount+mediumHouseCount+largeHouseCount, minY,maxY);
         for(int i = 0; i<ycoords.length; i++){
             float xcoord = (float)(minX + (Math.random()*(maxX-minX)));
-            elements.addAll(houseProvider.GetSmallHouse(xcoord, ycoords[i], scale));
+            elements.putAll(houseProvider.GetSmallHouse(xcoord, ycoords[i], scale));
             //TODO: Create medium and large houses
         }
         return elements;

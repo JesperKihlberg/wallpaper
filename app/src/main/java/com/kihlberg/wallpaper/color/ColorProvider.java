@@ -106,7 +106,7 @@ public class ColorProvider implements IColorProvider {
 
     @Override
     public int GetTreeCrownColor() {
-        return Color.GREEN;
+        return Color.rgb(20, (int) (100 + Math.random()*20),20);
     }
 
     @Override

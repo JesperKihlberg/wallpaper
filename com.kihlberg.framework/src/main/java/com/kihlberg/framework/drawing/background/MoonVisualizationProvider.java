@@ -27,6 +27,12 @@ public class MoonVisualizationProvider extends CelestialBodyVisualizationProvide
     protected IAstronomyElementPosition getElementPosition() {
         return astronomyProvider.GetMoonPosition();
     }
+
+    @Override
+    protected int GetSortOrder() {
+        return 20;
+    }
+
     @Override
     protected IGuiElement getCelestrialObject() {
         double moonAge = astronomyProvider.GetMoonPosition().getMoonAge();

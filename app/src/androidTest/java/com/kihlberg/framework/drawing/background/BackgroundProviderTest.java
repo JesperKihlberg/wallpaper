@@ -15,7 +15,7 @@ public class BackgroundProviderTest extends TestCase {
 
         ISceneLayer sceneLayer = backgroundProvider.GetLayer();
 
-        List<IGuiElement> elements = sceneLayer.GetLayerElements();
+        TreeMap<Float,IGuiElement> elements = sceneLayer.GetLayerElements();
         assertEquals(1, elements.size());
         assertEquals(color, elements.get(0).GetColor());
         Path p = elements.get(0).GetPath();

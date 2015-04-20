@@ -12,6 +12,7 @@ import com.kihlberg.framework.drawing.layers.SceneLayerProvider;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 /**
  * Created by root on 3/22/15.
@@ -37,21 +38,21 @@ public class ForegroundProvider extends SceneLayerProvider implements IForegroun
     }
 
     @Override
-    public ISceneLayer GetLayer() {
-        List<IGuiElement> elements = new ArrayList<IGuiElement>();
+    public TreeMap<Integer,IGuiElement> GetLayer() {
+        TreeMap<Integer,IGuiElement> elements = new TreeMap<Integer,IGuiElement>();
 
-        elements.addAll(foregroundLayerProvider1.GetLayer().GetLayerElements());
-        elements.addAll(foregroundLayerProvider2.GetLayer().GetLayerElements());
-        elements.addAll(foregroundLayerProvider3.GetLayer().GetLayerElements());
-        return new SceneLayer(elements);
+        elements.putAll(foregroundLayerProvider1.GetLayer());
+        elements.putAll(foregroundLayerProvider2.GetLayer());
+        elements.putAll(foregroundLayerProvider3.GetLayer());
+        return elements;
     }
 
     @Override
     public void NotifyCanvasSizeChanged(float width, float height) {
         super.NotifyCanvasSizeChanged(width, height);
         float horizon = horizonProvider.GetHorizonYCoord();
-        foregroundLayerProvider1.Initialize(horizon, horizon + canvasHeight/15, 0.3f);
+        foregroundLayerProvider1.Initialize(horizon, horizon + canvasHeight / 15, 0.3f);
         foregroundLayerProvider2.Initialize(horizon + canvasHeight / 15, horizon + canvasHeight / 10, 0.5f);
-        foregroundLayerProvider3.Initialize(horizon + canvasHeight / 10, canvasHeight, 1.0f);
+        foregroundLayerProvider3.Initialize(horizon + canvasHeight / 10, horizon + canvasHeight / 5, 1.0f);
     }
 }

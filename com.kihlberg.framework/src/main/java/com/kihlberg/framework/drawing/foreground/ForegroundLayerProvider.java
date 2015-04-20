@@ -12,6 +12,7 @@ import com.kihlberg.framework.interfaces.IGuiElementProvider;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 /**
  * Created by root on 4/11/15.
@@ -24,7 +25,7 @@ public class ForegroundLayerProvider extends CanvasDependant implements ICanvasD
 
     private float rand1 = 0;
     private float rand2 = 0;
-    ISceneLayer sceneLayer;
+    TreeMap<Integer, IGuiElement> sceneLayer;
     float yStart, yEnd, scale;
 
     public ForegroundLayerProvider(IColorProvider colorProvider, IGuiElementProvider guiElementProvider, IHouseCollectionProvider houseCollectionProvider,ITreeProvider treeProvider) {
@@ -41,12 +42,12 @@ public class ForegroundLayerProvider extends CanvasDependant implements ICanvasD
         UpdateLayer();
     }
 
-    public ISceneLayer GetLayer() {
+    public TreeMap<Integer, IGuiElement> GetLayer() {
         return sceneLayer;
     }
 
     private void UpdateLayer(){
-        List<IGuiElement> elements = new ArrayList<IGuiElement>();
+        TreeMap<Integer,IGuiElement> elements = new TreeMap<Integer,IGuiElement>();
 
         rand1 = (float) Math.random();
         rand2 = (float) Math.random();
@@ -55,12 +56,12 @@ public class ForegroundLayerProvider extends CanvasDependant implements ICanvasD
         float baseMinY=yStart;
         float topPointX= (float) (canvasWidth*rand1);
         float topPointY =baseMinY + (float)((rand2-0.5)*canvasHeight/20);
-        elements.add(guiElementProvider.CreateBezierTopBox(0, baseMinY, canvasWidth, canvasHeight, topPointX, topPointY,
-                new BaseColorSetting( GuiElementType.Grassland, color1)));
-        elements.addAll(treeProvider.GetTree(topPointX, topPointY, scale));
-        elements.addAll(houseCollectionProvider.GetHouses(yStart,yEnd,0, canvasWidth,10,0,0,scale));
+        elements.put((int) this.yStart, guiElementProvider.CreateBezierTopBox(0, baseMinY, canvasWidth, canvasHeight, topPointX, topPointY,
+                new BaseColorSetting(GuiElementType.Grassland, color1)));
+        elements.putAll(treeProvider.GetTree(topPointX, topPointY, scale));
+        elements.putAll(houseCollectionProvider.GetHouses(yStart, yEnd, 0, canvasWidth, 10, 0, 0, scale));
 
-        this.sceneLayer=new SceneLayer(elements);
+        this.sceneLayer= elements;
 
     }
 

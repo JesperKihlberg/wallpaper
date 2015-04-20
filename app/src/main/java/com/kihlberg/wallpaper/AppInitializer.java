@@ -11,7 +11,9 @@ import com.kihlberg.framework.drawing.foreground.IHouseCollectionProvider;
 import com.kihlberg.framework.drawing.foreground.IHouseProvider;
 import com.kihlberg.framework.drawing.foreground.IHouseSettingsProvider;
 import com.kihlberg.framework.drawing.foreground.ITreeProvider;
+import com.kihlberg.framework.drawing.foreground.ITreeSettingsProvider;
 import com.kihlberg.framework.drawing.foreground.TreeProvider;
+import com.kihlberg.framework.drawing.foreground.TreeSettingsProvider;
 import com.kihlberg.framework.interfaces.ICanvasDependant;
 import com.kihlberg.framework.interfaces.IColorProvider;
 import com.kihlberg.framework.interfaces.IGuiElementProvider;
@@ -54,6 +56,7 @@ public class AppInitializer {
     private ForegroundProvider foregroundProvider = null;
     private BackgroundProvider backgroundProvider = null;
     private ITreeProvider treeProvider=null;
+    private ITreeSettingsProvider treeSettingsProvider=null;
 //    private ISkyProvider skyProvider = null;
     private ISceneProvider sceneProvider = null;
     private IUpdatableCanvasSizeProvider canvasSizeProvider = null;
@@ -77,7 +80,8 @@ public class AppInitializer {
         houseCollectionProvider=new HouseCollectionProvider(houseProvider);
         sunVisualizationProvider = new SunVisualizationProvider(astronomyProvider,horizonProvider, guiElementProvider, colorProvider);
         moonVisualizationProvider= new MoonVisualizationProvider(astronomyProvider,horizonProvider, guiElementProvider, colorProvider);
-        treeProvider= new TreeProvider(colorProvider, guiElementProvider);
+        treeSettingsProvider = new TreeSettingsProvider();
+        treeProvider= new TreeProvider(colorProvider, guiElementProvider,treeSettingsProvider);
         foregroundLayerProvider1 = new ForegroundLayerProvider(colorProvider,guiElementProvider,houseCollectionProvider,treeProvider);
         foregroundLayerProvider2= new ForegroundLayerProvider(colorProvider,guiElementProvider,houseCollectionProvider,treeProvider);
         foregroundLayerProvider3= new ForegroundLayerProvider(colorProvider,guiElementProvider,houseCollectionProvider,treeProvider);

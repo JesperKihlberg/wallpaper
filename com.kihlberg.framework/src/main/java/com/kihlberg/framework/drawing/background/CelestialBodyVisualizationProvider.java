@@ -10,6 +10,7 @@ import com.kihlberg.framework.interfaces.IGuiElementProvider;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 /**
  * Created by root on 4/1/15.
@@ -38,12 +39,14 @@ public abstract class CelestialBodyVisualizationProvider extends CanvasDependant
         this.colorProvider = colorProvider;
     }
 
-    public List<IGuiElement> GetLayer(){
-        ArrayList<IGuiElement> elements = new ArrayList<>();
+    public TreeMap<Integer,IGuiElement> GetLayer(){
+        TreeMap<Integer,IGuiElement> elements = new TreeMap<Integer,IGuiElement>();
         IGuiElement elem = getCelestrialObject();
-        elements.add(elem);
+        elements.put(GetSortOrder(), elem);
         return elements;
     }
+
+    protected abstract int GetSortOrder();
 
     protected abstract IGuiElement getCelestrialObject();
 

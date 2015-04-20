@@ -24,6 +24,12 @@ public class SunVisualizationProvider extends CelestialBodyVisualizationProvider
     protected IAstronomyElementPosition getElementPosition() {
         return astronomyProvider.GetSunPosition();
     }
+
+    @Override
+    protected int GetSortOrder() {
+        return 10;
+    }
+
     @Override
     protected IGuiElement getCelestrialObject() {
         return guiElementProvider.CreateCircle(GetCelestialBodyXCoord(), GetCelestialBodyYCoord(), 50, new BaseColorSetting(GuiElementType.Sun, colorProvider.GetSunColor()),true);

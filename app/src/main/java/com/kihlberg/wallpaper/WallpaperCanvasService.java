@@ -17,6 +17,8 @@ import com.kihlberg.framework.drawing.scene.Scene;
 import com.kihlberg.wallpaper.common.IAndroidGuiElement;
 import com.kihlberg.wallpaper.common.IUpdatableCanvasSizeProvider;
 
+import java.util.TreeMap;
+
 /**
  * Created by root on 3/13/15.
  */
@@ -57,13 +59,11 @@ public class WallpaperCanvasService implements IWallpaperCanvasService
                 int x = c.getWidth()/2 - offset;
                 int y = 70;
 
-                Scene scene = sceneProvider.GetScene();
-                ISceneLayer background = scene.background;
-                ISceneLayer foreground = scene.foreground;
+                TreeMap<Integer, IGuiElement> scene = sceneProvider.GetScene();
 
                 p.setStyle(Paint.Style.FILL);
 
-                for (IGuiElement guiElement : background.GetLayerElements())
+                for (IGuiElement guiElement : scene.values())
                 {
                     IAndroidGuiElement element = (IAndroidGuiElement)guiElement;
                     p.setColor(element.GetColor().GetColor());
@@ -81,7 +81,7 @@ public class WallpaperCanvasService implements IWallpaperCanvasService
                     else
                         c.drawPath(element.GetPath(), p);
                 }
-                for (IGuiElement guiElement : foreground.GetLayerElements())
+/*                for (IGuiElement guiElement : foreground.GetLayerElements())
                 {
                     IAndroidGuiElement element = (IAndroidGuiElement)guiElement;
                     p.setColor(element.GetColor().GetColor());
@@ -95,6 +95,7 @@ public class WallpaperCanvasService implements IWallpaperCanvasService
                         p.setMaskFilter(filter);
                     }
                 }
+                */
 /*
                 p.setStyle(Paint.Style.STROKE);
 

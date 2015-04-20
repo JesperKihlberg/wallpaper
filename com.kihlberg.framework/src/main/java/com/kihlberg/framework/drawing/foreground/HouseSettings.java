@@ -12,7 +12,7 @@ public class HouseSettings implements IHouseSettings {
 
     @Override
     public float GetWidthPercentage() {
-        return (float)(Math.random()+0.8)*0.1f;
+        return (float)(Math.random()+3.5)*0.025f;
     }
 
     @Override

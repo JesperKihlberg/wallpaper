@@ -12,6 +12,7 @@ import com.kihlberg.framework.drawing.layers.SceneLayerProvider;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 /**
  * Created by root on 3/22/15.
@@ -30,11 +31,11 @@ public class  BackgroundProvider extends SceneLayerProvider implements IBackgrou
     }
 
     @Override
-    public ISceneLayer GetLayer() {
-        List<IGuiElement> elements = new ArrayList<IGuiElement>();
-        elements.add(guiElementProvider.CreateBox(0,0, canvasWidth, canvasHeight, new BaseColorSetting( GuiElementType.Sky, colorProvider.GetSkyColor())));
-        elements.addAll(sunVisualizationProvider.GetLayer());
-        elements.addAll(moonVisualizationProvider.GetLayer());
-        return new SceneLayer(elements);
+    public TreeMap<Integer,IGuiElement> GetLayer() {
+        TreeMap<Integer,IGuiElement> elements = new TreeMap<Integer,IGuiElement>();
+        elements.put(0,guiElementProvider.CreateBox(0,0, canvasWidth, canvasHeight, new BaseColorSetting( GuiElementType.Sky, colorProvider.GetSkyColor())));
+        elements.putAll(sunVisualizationProvider.GetLayer());
+        elements.putAll(moonVisualizationProvider.GetLayer());
+        return elements;
     }
 }

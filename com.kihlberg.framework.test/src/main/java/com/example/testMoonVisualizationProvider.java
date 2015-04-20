@@ -20,6 +20,7 @@ import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.TreeMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
@@ -94,7 +95,7 @@ public class testMoonVisualizationProvider {
 
         MoonVisualizationProvider obj = GetObject(astronomyProviderMock,horizonProviderMock,guiElementProviderMock,colorProviderMock );
         obj.NotifyCanvasSizeChanged(canvasWidth, canvasHeight);
-        List<IGuiElement> result = obj.GetLayer();
+        TreeMap<Integer,IGuiElement> result = obj.GetLayer();
 
         ArgumentCaptor<BaseColorSetting> argument = ArgumentCaptor.forClass(BaseColorSetting.class);
         Mockito.verify(guiElementProviderMock).CreateMoon(eq(this.x), eq(this.y), eq(this.radius1), eq(this.radius2),argument.capture(),eq(true));
@@ -103,7 +104,7 @@ public class testMoonVisualizationProvider {
         Assert.assertEquals(GuiElementType.Moon, argument.getValue().GetType());
 
         Assert.assertEquals(1, result.size());
-        Assert.assertEquals(moonMock, result.get(0));
+        Assert.assertEquals(moonMock, result.values().toArray()[0]);
     }
 
     private MoonVisualizationProvider GetObject(IAstronomyProvider astronomyProvider,

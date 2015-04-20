@@ -2,6 +2,9 @@ package com.kihlberg.framework.drawing.scene;
 
 import com.kihlberg.framework.drawing.background.IBackgroundProvider;
 import com.kihlberg.framework.drawing.foreground.IForegroundProvider;
+import com.kihlberg.framework.interfaces.IGuiElement;
+
+import java.util.TreeMap;
 
 /**
  * Created by root on 3/16/15.
@@ -16,7 +19,10 @@ public class SceneProvider implements ISceneProvider {
     }
 
     @Override
-    public Scene GetScene() {
-        return new Scene(foregroundProvider.GetLayer(), backgroundProvider.GetLayer());
+    public TreeMap<Integer,IGuiElement> GetScene() {
+        TreeMap<Integer,IGuiElement> elements = new TreeMap<Integer,IGuiElement>();
+        elements.putAll(foregroundProvider.GetLayer());
+        elements.putAll(backgroundProvider.GetLayer());
+        return elements;
     }
 }
